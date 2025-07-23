@@ -32,7 +32,7 @@ public class PlocaDTO {
     private String izdavackaKuca;
 
 
-    private Zanr zanr;
+    private ZanrDTO zanr;
 
 
     private Boolean vidljiv;

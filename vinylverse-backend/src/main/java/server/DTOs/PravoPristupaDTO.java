@@ -15,7 +15,7 @@ public class PravoPristupaDTO {
 
 	private String naziv;
 	
-	private Set<DodeljenoPravoPristupa> dodeljenaPravaPristupa;
+	private Set<DodeljenoPravoPristupaDTO> dodeljenaPravaPristupa;
 	
 
     private Boolean vidljiv = true;

@@ -1,5 +1,6 @@
 package server.model;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -8,8 +9,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Zanr {
 
     @Id
@@ -20,7 +27,7 @@ public class Zanr {
     private String naziv;
     
     @OneToMany(mappedBy = "zanr")
-    private Set<Ploca> ploce;
+    private List<Ploca> ploce;
     
 	@Column(nullable = false)
 	private Boolean vidljiv;

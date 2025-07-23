@@ -19,7 +19,7 @@ public class DodeljenoPravoPristupaDTO {
 	    private Korisnik korisnik;
 
 
-	    private PravoPristupa pravoPristupa;
+	    private PravoPristupaDTO pravoPristupa;
 	    
 
 	    private Boolean vidljiv = true;

@@ -1,5 +1,6 @@
 package server.DTOs;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -18,7 +19,7 @@ public class ZanrDTO {
     private String naziv;
     
 
-    private Set<PlocaDTO> ploce;
+    private List<PlocaDTO> ploce;
     
 
 	private Boolean vidljiv;
