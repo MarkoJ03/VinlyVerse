@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
@@ -25,8 +26,7 @@ public class Ploca {
     @MapsId
     @JoinColumn(name = "id")
     private Proizvod proizvod;
-	@Column(nullable = false)
-
+	@Column(nullable = false, length = 10000)
     private String listaPesama;
 	@Column(nullable = false)
 

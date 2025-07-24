@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class PlocaDTO {
 
     private ProizvodDTO proizvod;
 
-
+    
     private String listaPesama;
 
 
