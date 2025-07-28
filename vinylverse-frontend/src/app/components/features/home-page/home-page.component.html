@@ -1,0 +1,30 @@
+<app-header></app-header>
+
+<div class="slika">
+<section class="hero">
+  <img src="assets/logo.png" alt="VinylVerse Logo" class="hero-logo" />
+  <h1>Muzika koja traje večno</h1>
+  <p>Retro kolekcije gramofonskih ploča za istinske ljubitelje zvuka.</p>
+  <a href="#" class="btn">Započni pregled</a>
+</section>
+
+<section class="featured">
+    <h2>Izdvajamo iz ponude</h2>
+    <div class="grid">
+      @for (ploca of preporucenePloce; track ploca.naslov){
+    
+        <app-ploca-card
+          [naslov]="ploca.naslov"
+          [izvodjac]="ploca.izvodjac"
+          [godina]="ploca.godina"
+          [cena]="ploca.cena"
+          [slika]="ploca.slika"></app-ploca-card>
+
+
+      }
+    </div>
+</section>
+</div>
+
+
+<app-footer></app-footer>

@@ -1,0 +1,68 @@
+.record-card {
+  background-color: #1A1A1A;
+  border: 2px solid #C86B3C;
+  border-radius: 8px;
+  padding: 12px;
+  width: 220px;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.record-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(200, 107, 60, 0.4);
+}
+
+.record-card:hover h3 {
+  color: #FF9543;
+}
+
+.record-card img {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  height: 220px;
+}
+
+.record-card .info {
+  text-align: center;
+  color: #FFEEDD;
+  margin-top: 10px;
+}
+
+.record-card .title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.record-card .cena {
+  color: #F2B134;
+  margin-top: 4px;
+}
+
+.record-card button {
+  margin-top: 10px;
+  background-color: #C86B3C;
+  color: #1A1A1A;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.record-card button:hover {
+  background-color: #FF9543;
+}
+
+.cena{
+  font-family: 'Roboto Mono', monospace;
+font-size: 14px;
+}
+
+.godina{
+  font-family: 'Roboto Mono', monospace;
+font-size: 14px;
+}
