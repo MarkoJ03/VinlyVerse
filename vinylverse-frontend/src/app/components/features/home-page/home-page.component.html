@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 
 <div class="slika">
 <section class="hero">
@@ -8,23 +8,25 @@
   <a href="#" class="btn">Započni pregled</a>
 </section>
 
-<section class="featured">
-    <h2>Izdvajamo iz ponude</h2>
-    <div class="grid">
-      @for (ploca of preporucenePloce; track ploca.naslov){
-    
-        <app-ploca-card
-          [naslov]="ploca.naslov"
-          [izvodjac]="ploca.izvodjac"
-          [godina]="ploca.godina"
-          [cena]="ploca.cena"
-          [slika]="ploca.slika"></app-ploca-card>
+<section class="carousel-wrapper">
+  <h2>Izdvajamo iz naše kolekcije</h2>
 
+  <div class="carousel">
+    @for (ploca of ploce; track ploca.id){
+          <app-ploca-card  [naziv]="ploca.proizvod.naziv"
+          [izdavackaKuca]="ploca.izdavackaKuca"
+          [zanr]="ploca.zanr.naziv"
+          [cena]="ploca.proizvod.cena"
+          [slika]="ploca.slika">></app-ploca-card>
+    }
 
-      }
-    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button (click)="prethodnaStrana()">◀</button>
+    <button (click)="sledecaStrana()">▶</button>
+  </div>
 </section>
 </div>
 
 
-<app-footer></app-footer>

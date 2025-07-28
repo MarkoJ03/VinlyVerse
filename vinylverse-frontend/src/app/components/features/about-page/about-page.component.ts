@@ -4,7 +4,7 @@ import { FooterComponent } from '../../core/footer/footer.component';
 
 @Component({
   selector: 'app-about-page',
-  imports: [HeaderComponent,FooterComponent],
+  imports: [],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css'
 })

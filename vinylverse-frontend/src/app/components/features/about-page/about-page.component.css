@@ -48,7 +48,7 @@
   color: #DCC8AF;
 }
 
-/* Naša priča */
+
 .about-story {
   background-color: #1A1A1A;
   padding: 80px 20px;
@@ -73,7 +73,6 @@
   color: #EDE9E0;
 }
 
-/* Vrednosti */
 .about-values {
   background-color: #2B2B2B;
   padding: 80px 20px;
@@ -94,12 +93,11 @@
   text-align: center;
 }
 
-/* Kontakt sekcija */
 .about-contact {
   background-color: #101010;
   padding: 60px 20px;
   text-align: center;
-  border-top: 2px solid #C86B3C;
+  border-top: 2px solid #2b6f5b;
 }
 
 .about-contact h2 {

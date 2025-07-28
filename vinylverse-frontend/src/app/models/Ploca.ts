@@ -8,5 +8,6 @@ export interface Ploca{
     brend: string;
     izdavackaKuca: string;
     zanr: Zanr;
+    slika: string;
     vidljiv: boolean;
 }

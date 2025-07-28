@@ -1,0 +1,72 @@
+    <div class="details-container" *ngIf="ploca">
+    <div class="album-left">
+        <img [src]="'/assets/images/ploce/' + ploca.id + '.jpg'" [alt]="ploca.proizvod.naziv" class="album-image" />
+    </div>
+
+    <div class="album-right">
+        <h1 class="album-title">{{ ploca.proizvod.naziv }}</h1>
+
+        <table class="album-table">
+        <tr>
+            <td>Žanr:</td>
+            <td>{{ ploca.zanr.naziv }}</td>
+        </tr>
+        <tr>
+            <td>Brend:</td>
+            <td>{{ ploca.brend }}</td>
+        </tr>
+        <tr>
+            <td>Izdavačka kuća:</td>
+            <td>{{ ploca.izdavackaKuca }}</td>
+        </tr>
+        <tr>
+            <td>Cena:</td>
+            <td>{{ ploca.proizvod.cena | currency:'RSD' }}</td>
+        </tr>
+        </table>
+
+        <button class="add-to-cart" (click)="dodajUKorpu()">Dodaj u korpu 🛒</button>
+
+        <div class="tracklist">
+        <h3>Lista pesama</h3>
+        <ul>
+            <li *ngFor="let pesma of ploca.listaPesama.split(',')">
+            🎵 {{ pesma.trim() }}
+            </li>
+        </ul>
+        </div>
+    </div>
+    </div>
+
+    <hr class="zelena-linija" />
+    
+    <div class="kolekcija-wrapper">
+    <div class="kolekcija-naslov">
+    <h2>Još iz naše kolekcije</h2>
+    </div>
+
+    <div class="carousel-container">
+        <button class="carousel-btn left" (click)="scrollLeft()">&#10094;</button>
+
+        <div class="carousel" #carousel>
+    <!-- @for (ploca of ploce; track ploca.id){
+          <app-ploca-card  [naziv]="ploca.proizvod.naziv"
+          [izdavackaKuca]="ploca.izdavackaKuca"
+          [zanr]="ploca.zanr.naziv"
+          [cena]="ploca.proizvod.cena"
+          [slika]="ploca.slika">></app-ploca-card>
+    } -->
+
+        </div>
+
+        <button class="carousel-btn right" (click)="scrollRight()">&#10095;</button>
+    </div>
+    </div>
+
+
+
+
+
+    <div class="toast" *ngIf="showToast">
+    Ploča dodata u korpu! ✅
+    </div>

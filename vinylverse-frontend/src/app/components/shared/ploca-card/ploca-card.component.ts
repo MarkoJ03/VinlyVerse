@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './ploca-card.component.css'
 })
 export class PlocaCardComponent {
-  @Input() naslov!: string;
-  @Input() izvodjac!: string;
-  @Input() godina!: number;
+  @Input() naziv!: string;
+  @Input() izdavackaKuca!: string;
+  @Input() zanr!: string;
   @Input() cena!: number;
   @Input() slika!: string; // putanja do slike
 }

@@ -1,5 +1,7 @@
 package server.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -75,5 +77,31 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
             entity.setZanr(null);
         }
     }
+    
+    public List<PlocaDTO> getPaginiranePloce(int page, int size) {
+        List<Ploca> svePloce = new ArrayList<>();
+        plocaRepository.findAll().forEach(svePloce::add); 
+
+        int fromIndex = page * size;
+        int toIndex = Math.min(fromIndex + size, svePloce.size());
+
+        if (fromIndex > svePloce.size()) return List.of(); 
+
+        return svePloce.subList(fromIndex, toIndex).stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+
+    public List<PlocaDTO> getNasumicnePloce(int broj) {
+        List<Ploca> svePloce = new ArrayList<>();
+        plocaRepository.findAll().forEach(svePloce::add);
+
+        Collections.shuffle(svePloce);
+        return svePloce.stream()
+            .limit(broj)
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+
 
 }  

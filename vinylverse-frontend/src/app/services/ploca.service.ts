@@ -11,4 +11,12 @@ export class PlocaService extends BaseService<Ploca> {
     super(http);
     this.setUrl('http://localhost:8080/api/ploca');
   }
+getPaginirane(page: number, size: number) {
+  return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/paginacija?page=${page}&size=${size}`);
+}
+
+getNasumicne(broj: number) {
+  return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/nasumicno?broj=${broj}`);
+}
+  
 }

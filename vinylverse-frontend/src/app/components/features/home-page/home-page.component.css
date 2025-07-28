@@ -60,43 +60,40 @@ body {
   background-color: #FF9543;
 }
 
-.featured {
-  background-color: #2B2B2B;
-  padding: 60px 40px;
+.carousel-wrapper {
+  padding: 2rem;
+  color: #ffeedd;
   text-align: center;
+  background-color: #2B2B2B;
 }
 
-.featured h2 {
-  font-size: 28px;
-  margin-bottom: 40px;
-  color: #FFEEDD;
-}
-
-.grid {
+.carousel {
   display: flex;
-  flex-wrap: wrap;
+  gap: 2rem;
   justify-content: center;
-  gap: 50px;
+  align-items: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  background-color: #2B2B2B;
 }
 
-.record-card {
-  background-color: #1A1A1A;
-  border: 2px solid #C86B3C;
+.carousel-controls button {
+  background: none;
+  border: 2px solid #33cc66;
+  color: #33cc66;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0 1rem;
+  cursor: pointer;
   border-radius: 8px;
-  padding: 12px;
-  width: 200px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.record-card:hover {
-  transform: scale(1.05);
+.carousel-controls button:hover {
+  background-color: #33cc66;
+  color: #1a1a1a;
 }
 
-.record-card p {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #FFEEDD;
-}
 a {
   text-decoration: none;
   color: inherit;
