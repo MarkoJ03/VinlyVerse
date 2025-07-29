@@ -18,11 +18,13 @@
         @for (ploca of ploce; track ploca.id) {
           <div class="carousel-item">
             <app-ploca-card
+             [id]="ploca.id"
               [naziv]="ploca.proizvod.naziv"
               [izdavackaKuca]="ploca.izdavackaKuca"
               [zanr]="ploca.zanr.naziv"
               [cena]="ploca.proizvod.cena"
-              [slika]="ploca.slika">
+              [slika]="ploca.slika"
+               [slug]="generateSlug(ploca.proizvod.naziv, ploca.izdavackaKuca)">
             </app-ploca-card>
           </div>
         }

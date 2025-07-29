@@ -18,12 +18,14 @@ ploca: any;
   constructor(private route: ActivatedRoute, private ploceService: PlocaService) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.ploceService.getById(+id).subscribe(data => {
-        this.ploca = data;
-      });
-    };
+    const id = this.route.params.subscribe(params => {
+  const id = +params['id'];
+  if (id) {
+    this.ploceService.getById(id).subscribe(data => {
+      this.ploca = data;
+    });
+  }
+});
 
       this.ploceService.getAll().subscribe(data => {
       this.ploce = data;
@@ -69,4 +71,11 @@ dodajUKorpu() {
       this.startIndex--;
     }
   }
+
+  generateSlug(naziv: string, izdavackaKuca: string): string {
+  return (naziv + '-' + izdavackaKuca)
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+
+}
 }

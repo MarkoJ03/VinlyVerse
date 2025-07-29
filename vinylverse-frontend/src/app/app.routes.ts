@@ -8,5 +8,9 @@ import { AppComponent } from './app.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'about', component: AboutPageComponent },
-  { path: 'detalji/:id', component: PlocaDetailsComponent }
+  {
+    path: 'detalji/:id/:slug',
+    component: PlocaDetailsComponent
+  }
+
 ];

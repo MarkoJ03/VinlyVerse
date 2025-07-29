@@ -39,4 +39,9 @@ export class HomePageComponent implements OnInit {
       this.startIndex--;
     }
   }
+  generateSlug(naziv: string, izdavackaKuca: string): string {
+  return (naziv + '-' + izdavackaKuca)
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+}
 }

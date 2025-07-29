@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ploca-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './ploca-card.component.html',
   styleUrl: './ploca-card.component.css'
 })
@@ -12,4 +13,6 @@ export class PlocaCardComponent {
   @Input() zanr!: string;
   @Input() cena!: number;
   @Input() slika!: string; // putanja do slike
+  @Input() id!: number;
+  @Input() slug!: string;
 }

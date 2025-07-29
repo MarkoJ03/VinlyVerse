@@ -5,7 +5,10 @@
     <p>{{ izdavackaKuca }}</p>
     <p>{{ zanr }}</p>
     <p class="cena">{{ cena }}</p>
-    <button>Detalji</button>
+  <a [routerLink]="['/detalji', id, slug]">
+  <button>Detalji</button>
+  </a>
+
   </div>
 </div>
 
