@@ -1,46 +1,42 @@
-import { Component } from '@angular/core';
-import { HeaderComponent } from "../../core/header/header.component";
-import { FooterComponent } from '../../core/footer/footer.component';
-import { PlocaCardComponent } from '../../shared/ploca-card/ploca-card.component';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlocaService } from '../../../services/ploca.service';
 import { Ploca } from '../../../models/Ploca';
+import { PlocaCardComponent } from '../../shared/ploca-card/ploca-card.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [PlocaCardComponent,CommonModule],
+  standalone: true,
+  imports: [PlocaCardComponent, CommonModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
-
- ploce: Ploca[] = [];
-  page = 0;
-  size = 3;
+export class HomePageComponent implements OnInit {
+  ploce: Ploca[] = [];
+  startIndex: number = 0;
+  visibleCount = 3;
 
   constructor(private plocaService: PlocaService) {}
 
   ngOnInit(): void {
-    this.ucitajPaginirane();
-  }
-
-  ucitajPaginirane(): void {
-    this.plocaService.getPaginirane(this.page, this.size).subscribe(data => {
+    this.plocaService.getAll().subscribe(data => {
       this.ploce = data;
     });
   }
 
-  sledecaStrana(): void {
-    this.page++;
-    this.ucitajPaginirane();
+  get trackTransform(): string {
+    return `translateX(-${(100 / this.visibleCount) * this.startIndex}%)`;
   }
 
-  prethodnaStrana(): void {
-    if (this.page > 0) {
-      this.page--;
-      this.ucitajPaginirane();
+  sledeca(): void {
+    if (this.startIndex + this.visibleCount < this.ploce.length) {
+      this.startIndex++;
+    }
+  }
+
+  prethodna(): void {
+    if (this.startIndex > 0) {
+      this.startIndex--;
     }
   }
 }
-
-
