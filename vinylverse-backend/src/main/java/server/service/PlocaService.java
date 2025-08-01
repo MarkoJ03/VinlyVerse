@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import server.DTOs.PlocaDTO;
 import server.DTOs.ZanrDTO;
 import server.model.Ploca;
@@ -18,6 +19,7 @@ import server.model.Proizvod;
 import server.model.Zanr;
 import server.repository.PlocaRepository;
 import server.repository.ProizvodRepository;
+import server.repository.ZanrRepository;
 
 @Service
 public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
@@ -36,6 +38,10 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
     @Autowired
     @Lazy
     private ProizvodRepository proizvodRepository;
+    
+    @Autowired
+    @Lazy
+    private ZanrRepository zanrRepository;
 
     @Override
     protected CrudRepository<Ploca, Long> getRepository() {
@@ -156,6 +162,29 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
+    
+    @Override
+    @Transactional
+    public PlocaDTO save(PlocaDTO dto) {
+     
+        Proizvod proizvod = proizvodService.convertToEntity(dto.getProizvod());
+
+
+        proizvod = proizvodRepository.save(proizvod);
+
+ 
+        Ploca ploca = new Ploca();
+        ploca.setProizvod(proizvod); 
+        ploca.setListaPesama(dto.getListaPesama());
+        ploca.setBrend(dto.getBrend());
+        ploca.setIzdavackaKuca(dto.getIzdavackaKuca());
+        ploca.setGodinaIzdanja(dto.getGodinaIzdanja());
+        ploca.setZanr(zanrRepository.findById(dto.getZanr().getId()).orElseThrow());
+        ploca.setVidljiv(true);
+
+        return convertToDTO(plocaRepository.save(ploca));
+    }
+
 
 
 }  

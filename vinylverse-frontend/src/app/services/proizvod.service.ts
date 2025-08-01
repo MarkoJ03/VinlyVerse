@@ -17,6 +17,6 @@ export class ProizvodService extends BaseService<Proizvod> {
   const formData = new FormData();
   formData.append('file', file);
 
-  return this.http.post('/api/slike/upload', formData, { responseType: 'text' });
+  return this.http.post('http://localhost:8080/api/slike/upload', formData, { responseType: 'text' });
 }
 }

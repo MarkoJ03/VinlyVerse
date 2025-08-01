@@ -1,6 +1,7 @@
     <div class="details-container" *ngIf="ploca">
     <div class="album-left">
-        <img [src]="'/assets/images/ploce/' + ploca.id + '.jpg'" [alt]="ploca.proizvod.naziv" class="album-image" />
+    <img [src]="getSlikaUrl(ploca.proizvod.slikaPutanja)" [alt]="ploca.proizvod.naziv" class="album-image" />
+
     </div>
 
     <div class="album-right">
@@ -54,12 +55,12 @@
         @for (ploca of ploce; track ploca.id) {
           <div class="carousel-item">
             <app-ploca-card
-             [id]="ploca.id"
+             [id]="ploca.id!"
               [naziv]="ploca.proizvod.naziv"
               [izdavackaKuca]="ploca.izdavackaKuca"
               [zanr]="ploca.zanr.naziv"
               [cena]="ploca.proizvod.cena"
-              [slika]="ploca.slika"
+              [slika]="ploca.proizvod.slikaPutanja"
               [slug]="generateSlug(ploca.proizvod.naziv, ploca.izdavackaKuca)">
             </app-ploca-card>
           </div>

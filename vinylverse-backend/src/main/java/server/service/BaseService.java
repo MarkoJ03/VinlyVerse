@@ -49,10 +49,28 @@ public abstract class BaseService<T, DTO, ID> {
                 .map(this::convertToDTO);
     }
 
+    @Transactional
     public DTO save(DTO dto) {
-        T entity = convertToEntity(dto);
-        setVidljiv(entity, true);
-        return convertToDTO(getRepository().save(entity));
+        try {
+            Field idField = dto.getClass().getDeclaredField("id");
+            idField.setAccessible(true);
+            Object id = idField.get(dto);
+
+            if (id != null) {
+                Optional<T> optionalEntity = getRepository().findById((ID) id);
+                if (optionalEntity.isPresent()) {
+                    T existingEntity = optionalEntity.get();
+                    updateEntityFromDto(dto, existingEntity);
+                    return convertToDTO(getRepository().save(existingEntity));
+                }
+            }
+
+            T newEntity = convertToEntity(dto);
+            setVidljiv(newEntity, true);
+            return convertToDTO(getRepository().save(newEntity));
+        } catch (Exception e) {
+            throw new RuntimeException("Greška pri save operaciji: " + e.getMessage(), e);
+        }
     }
     
     

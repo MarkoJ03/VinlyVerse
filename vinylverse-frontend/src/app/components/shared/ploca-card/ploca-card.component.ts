@@ -12,7 +12,11 @@ export class PlocaCardComponent {
   @Input() izdavackaKuca!: string;
   @Input() zanr!: string;
   @Input() cena!: number;
-  @Input() slika!: string; // putanja do slike
+  @Input() slika!: string; 
   @Input() id!: number;
   @Input() slug!: string;
+
+  get punaPutanjaSlike(): string {
+  return 'http://localhost:8080/' + this.slika;
+}
 }

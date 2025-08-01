@@ -7,6 +7,7 @@ import { PlocaService } from '../../../../../services/ploca.service';
 import { Zanr } from '../../../../../models/Zanr';
 import { BaseFormComponent } from '../../../../shared/base-form/base-form.component';
 import { Ploca } from '../../../../../models/Ploca';
+import { ProizvodService } from '../../../../../services/proizvod.service';
 
 @Component({
   selector: 'app-ploca-forma',
@@ -19,12 +20,14 @@ export class PlocaFormaComponent implements OnInit {
   formaModel: FormaModel | null = null;
   idT: number | null = null;
   zanrovi: Zanr[] = [];
+  slika: File | null = null;
 
   constructor(
     private zanrService: ZanrService,
     private plocaService: PlocaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private proizvodService: ProizvodService,
   ) {}
 
   ngOnInit(): void {
@@ -44,33 +47,52 @@ export class PlocaFormaComponent implements OnInit {
     });
   }
 
-sacuvaj(vrednosti: any): void {
-  const dto: Ploca = {
-    id: this.idT ?? undefined, 
-    proizvod: {
+  uploadujSliku(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!this.slika) {
+      resolve('');
+      return;
+    }
 
-      naziv: vrednosti.proizvod_naziv,
-      cena: vrednosti.proizvod_cena,
-      opis: vrednosti.proizvod_opis,
-      slikaPutanja: vrednosti.proizvod_slikaPutanja,
-      vidljiv: vrednosti.proizvod_vidljiv
-    },
-    listaPesama: vrednosti.listaPesama,
-    brend: vrednosti.brend,
-    izdavackaKuca: vrednosti.izdavackaKuca,
-    godinaIzdanja: vrednosti.godinaIzdanja,
-    zanr: vrednosti.zanr,
-    vidljiv: vrednosti.vidljiv
-  };
-
-  const akcija = this.idT
-    ? this.plocaService.update(this.idT, dto)
-    : this.plocaService.create(dto);
-
-  akcija.subscribe({
-    next: () => this.router.navigate(['/ploca']),
-    error: err => console.error('Greška pri snimanju ploče:', err)
+    this.proizvodService.uploadSlika(this.slika).subscribe({
+      next: path => resolve(path),
+      error: err => reject(err)
+    });
   });
+}
+
+async sacuvaj(vrednosti: any): Promise<void> {
+  try {
+    const putanja = await this.uploadujSliku();
+
+    const dto: Ploca = {
+      id: this.idT ?? undefined,
+      proizvod: {
+        naziv: vrednosti.proizvod_naziv,
+        cena: vrednosti.proizvod_cena,
+        opis: vrednosti.proizvod_opis,
+        slikaPutanja: putanja || vrednosti.proizvod_slikaPutanja, 
+        vidljiv: vrednosti.proizvod_vidljiv
+      },
+      listaPesama: vrednosti.listaPesama,
+      brend: vrednosti.brend,
+      izdavackaKuca: vrednosti.izdavackaKuca,
+      godinaIzdanja: vrednosti.godinaIzdanja,
+      zanr: vrednosti.zanr,
+      vidljiv: vrednosti.vidljiv
+    };
+
+    const akcija = this.idT
+      ? this.plocaService.update(this.idT, dto)
+      : this.plocaService.create(dto);
+
+    akcija.subscribe({
+      next: () => this.router.navigate(['/ploca']),
+      error: err => console.error('Greška pri snimanju ploče:', err)
+    });
+  } catch (err) {
+    console.error('Greška pri uploadu slike:', err);
+  }
 }
 
 
@@ -86,7 +108,6 @@ sacuvaj(vrednosti: any): void {
         { naziv: 'proizvod_naziv', labela: 'Naziv proizvoda', tip: 'text', podrazumevanaVrednost: p?.proizvod?.naziv ?? '', validatori: [Validators.required] },
         { naziv: 'proizvod_cena', labela: 'Cena', tip: 'text', podrazumevanaVrednost: p?.proizvod?.cena ?? '', validatori: [Validators.required] },
         { naziv: 'proizvod_opis', labela: 'Opis', tip: 'text', podrazumevanaVrednost: p?.proizvod?.opis ?? '', validatori: [Validators.required] },
-        { naziv: 'proizvod_slikaPutanja', labela: 'Putanja slike', tip: 'text', podrazumevanaVrednost: p?.proizvod?.slikaPutanja ?? '' },
         { naziv: 'proizvod_vidljiv', labela: '', tip: 'hidden', podrazumevanaVrednost: true },
 
         // PLOCA
@@ -106,4 +127,11 @@ sacuvaj(vrednosti: any): void {
       ]
     };
   }
+
+  onFileSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input?.files?.length) {
+    this.slika = input.files[0];
+  }
+}
 }

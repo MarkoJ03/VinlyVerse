@@ -22,21 +22,33 @@ public class SlikaController {
     public ResponseEntity<String> uploadSlika(@RequestParam("file") MultipartFile file) {
         try {
             String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+            if (originalFileName == null || originalFileName.isBlank()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ime fajla je prazno.");
+            }
+
             Path uploadPath = Paths.get(uploadFolder);
+            System.out.println("Upload folder: " + uploadPath.toAbsolutePath());
 
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
+                System.out.println("Kreiran folder: " + uploadPath.toAbsolutePath());
             }
 
             Path filePath = uploadPath.resolve(originalFileName);
+            System.out.println("Upisujem fajl u: " + filePath.toAbsolutePath());
+
             file.transferTo(filePath.toFile());
 
-            return ResponseEntity.ok("/api/slike/" + originalFileName);
-        } catch (IOException e) {
+            return ResponseEntity.ok("uploads/" + originalFileName);
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body("Greška pri uploadu slike");
+                    .body("Greška pri uploadu slike: " + e.getMessage());
         }
     }
+
 
     @GetMapping("/{filename:.+}")
     public ResponseEntity<byte[]> getSlika(@PathVariable String filename) throws IOException {

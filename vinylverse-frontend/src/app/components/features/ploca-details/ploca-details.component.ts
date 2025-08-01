@@ -77,5 +77,11 @@ dodajUKorpu() {
     .toLowerCase()
     .replace(/\s+/g, '-')
 
+
 }
+
+getSlikaUrl(putanja: string): string {
+  return 'http://localhost:8080/' + putanja;
+}
+
 }
