@@ -1,0 +1,8 @@
+<app-base-table 
+  [data]="zanrovi" 
+  [displayedColumns]="kolone" 
+  (edit)="izmeni($event)" 
+  (delete)="obrisi($event)"
+  (details)="detalji($event)"
+  (cancelEvent)="otkazi()">
+</app-base-table>

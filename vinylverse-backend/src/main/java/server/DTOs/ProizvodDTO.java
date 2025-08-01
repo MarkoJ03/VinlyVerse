@@ -18,6 +18,10 @@ private Long id;
 	
 
     private BigDecimal cena;
+    
+    private String opis;
+    
+    private String slikaPutanja;
 	
 
  

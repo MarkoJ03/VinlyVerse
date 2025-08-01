@@ -60,6 +60,6 @@ public class ZanrService extends BaseService<Zanr, ZanrDTO, Long> {
     @Override
     protected void updateEntityFromDto(ZanrDTO dto, Zanr entity) {
         entity.setNaziv(dto.getNaziv());
-        entity.setVidljiv(dto.getVidljiv());
+        entity.setVidljiv(true);
     }
 }

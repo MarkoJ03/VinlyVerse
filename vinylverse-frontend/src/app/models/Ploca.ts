@@ -2,12 +2,12 @@ import { Proizvod } from "./Proizvod";
 import { Zanr } from "./Zanr";
 
 export interface Ploca{
-    id:number;
+    id?:number;
     proizvod: Proizvod;
     listaPesama: string;
     brend: string;
     izdavackaKuca: string;
+    godinaIzdanja: string;
     zanr: Zanr;
-    slika: string;
     vidljiv: boolean;
 }

@@ -1,6 +1,8 @@
 export interface Proizvod {
-    id:number;
+    id?:number;
     naziv:string;
     cena:number;
+    opis:string;
+    slikaPutanja:string;
     vidljiv:boolean;
 }

@@ -1,5 +1,6 @@
 package server.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,7 +23,7 @@ public class Ploca {
 	@Id
     private Long id;
 
-    @OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "id")
     private Proizvod proizvod;
@@ -34,6 +35,9 @@ public class Ploca {
 	@Column(nullable = false)
 
     private String izdavackaKuca;
+	
+	@Column(nullable = false)
+	private String godinaIzdanja;
 
 	@ManyToOne(optional = false) 
     private Zanr zanr;

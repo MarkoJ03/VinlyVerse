@@ -21,7 +21,7 @@ public class ProizvodService extends BaseService<Proizvod, ProizvodDTO, Long> {
 
     @Override
     protected ProizvodDTO convertToDTO(Proizvod entity) {
-        return new ProizvodDTO(entity.getId(), entity.getNaziv(), entity.getCena(), entity.getVidljiv());
+        return new ProizvodDTO(entity.getId(), entity.getNaziv(), entity.getCena(),entity.getOpis(),entity.getSlikaPutanja(), entity.getVidljiv());
     }
 
     @Override
@@ -31,6 +31,8 @@ public class ProizvodService extends BaseService<Proizvod, ProizvodDTO, Long> {
         proizvod.setNaziv(dto.getNaziv());
         proizvod.setCena(dto.getCena());
         proizvod.setVidljiv(dto.getVidljiv());
+        proizvod.setOpis(dto.getOpis());
+        proizvod.setSlikaPutanja(dto.getSlikaPutanja());
         return proizvod;
     }
 
@@ -39,5 +41,7 @@ public class ProizvodService extends BaseService<Proizvod, ProizvodDTO, Long> {
         entity.setNaziv(dto.getNaziv());
         entity.setCena(dto.getCena());
         entity.setVidljiv(dto.getVidljiv());
+        entity.setOpis(dto.getOpis());
+        entity.setSlikaPutanja(dto.getSlikaPutanja());
     }
 }

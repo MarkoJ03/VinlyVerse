@@ -29,6 +29,11 @@ public class Proizvod {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal cena;
 	
+	@Column(nullable = false, length = 10000)
+    private String opis;
+	
+	@Column
+	private String slikaPutanja;
 
     @Column(nullable = false)
     private Boolean vidljiv;

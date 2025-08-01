@@ -1,5 +1,6 @@
 package server.DTOs;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class ZanrDTO {
     private String naziv;
     
 
-    private List<PlocaDTO> ploce;
+    private List<PlocaDTO> ploce = new ArrayList<>();
     
 
 	private Boolean vidljiv;

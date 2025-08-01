@@ -32,6 +32,7 @@ public class PlocaDTO {
 
     private String izdavackaKuca;
 
+	private String godinaIzdanja;
 
     private ZanrDTO zanr;
 

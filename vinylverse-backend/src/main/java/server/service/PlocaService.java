@@ -17,6 +17,7 @@ import server.model.Ploca;
 import server.model.Proizvod;
 import server.model.Zanr;
 import server.repository.PlocaRepository;
+import server.repository.ProizvodRepository;
 
 @Service
 public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
@@ -31,6 +32,10 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
     @Autowired
     @Lazy
     private ProizvodService proizvodService;
+    
+    @Autowired
+    @Lazy
+    private ProizvodRepository proizvodRepository;
 
     @Override
     protected CrudRepository<Ploca, Long> getRepository() {
@@ -45,6 +50,7 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
             entity.getListaPesama(),
             entity.getBrend(),
             entity.getIzdavackaKuca(),
+            entity.getGodinaIzdanja(),
             new ZanrDTO(entity.getZanr().getId(), entity.getZanr().getNaziv(),null,entity.getZanr().getVidljiv()),
             entity.getVidljiv()
         );
@@ -53,22 +59,65 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
     @Override
     protected Ploca convertToEntity(PlocaDTO dto) {
         Ploca ploca = new Ploca();
-        ploca.setId(dto.getId());
-        ploca.setProizvod(proizvodService.convertToEntity(dto.getProizvod()));
+
+
+        Proizvod proizvod;
+        if (dto.getProizvod().getId() != null) {
+   
+            proizvod = proizvodRepository.findById(dto.getProizvod().getId())
+                .orElseThrow(() -> new RuntimeException("Proizvod sa ID " + dto.getProizvod().getId() + " ne postoji"));
+        } else {
+
+            proizvod = proizvodService.convertToEntity(dto.getProizvod());
+            proizvod = proizvodRepository.save(proizvod); 
+        }
+
+
+        ploca.setProizvod(proizvod);
+        ploca.setId(proizvod.getId()); 
+        
+
         ploca.setListaPesama(dto.getListaPesama());
         ploca.setBrend(dto.getBrend());
         ploca.setIzdavackaKuca(dto.getIzdavackaKuca());
-        ploca.setZanr (new Zanr(dto.getZanr().getId(), dto.getZanr().getNaziv(),null,dto.getZanr().getVidljiv())
-);
+        ploca.setGodinaIzdanja(dto.getGodinaIzdanja());
+
+
+        if (dto.getZanr() != null && dto.getZanr().getId() != null) {
+            Zanr zanr = new Zanr();
+            zanr.setId(dto.getZanr().getId());
+            ploca.setZanr(zanr);
+        } else {
+            ploca.setZanr(null);
+        }
+
         ploca.setVidljiv(dto.getVidljiv());
+
         return ploca;
     }
 
+
     @Override
     protected void updateEntityFromDto(PlocaDTO dto, Ploca entity) {
+
+        if (dto.getProizvod() != null) {
+            Proizvod proizvod = entity.getProizvod(); 
+
+            proizvod.setNaziv(dto.getProizvod().getNaziv());
+            proizvod.setCena(dto.getProizvod().getCena());
+            proizvod.setOpis(dto.getProizvod().getOpis());
+            proizvod.setSlikaPutanja(dto.getProizvod().getSlikaPutanja());
+            proizvod.setVidljiv(dto.getProizvod().getVidljiv());
+
+            proizvodRepository.save(proizvod); 
+        }
+
+
         entity.setListaPesama(dto.getListaPesama());
         entity.setBrend(dto.getBrend());
         entity.setIzdavackaKuca(dto.getIzdavackaKuca());
+        entity.setGodinaIzdanja(dto.getGodinaIzdanja());
+
         if (dto.getZanr() != null && dto.getZanr().getId() != null) {
             Zanr zanr = new Zanr();
             zanr.setId(dto.getZanr().getId());
@@ -76,7 +125,12 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
         } else {
             entity.setZanr(null);
         }
+
+        entity.setVidljiv(dto.getVidljiv());
     }
+
+
+
     
     public List<PlocaDTO> getPaginiranePloce(int page, int size) {
         List<Ploca> svePloce = new ArrayList<>();
