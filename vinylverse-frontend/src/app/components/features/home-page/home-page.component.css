@@ -61,7 +61,7 @@ a {
   background-color: #FF9543;
 }
 
-/* CAROUSEL */
+
 
 .carousel-wrapper {
   padding: 2rem;
@@ -115,7 +115,7 @@ a {
   color: #1a1a1a;
 }
 
-/* Opcioni fade efekti sa strane */
+
 
 .carousel-viewport::before,
 .carousel-viewport::after {
@@ -141,7 +141,7 @@ a {
 .carousel-wrapper h2 {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  
+
 }hr.zelena-linija {
   border: none;
   height: 2px;

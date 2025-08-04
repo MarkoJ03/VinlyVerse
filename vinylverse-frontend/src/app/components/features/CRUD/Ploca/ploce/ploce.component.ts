@@ -18,6 +18,7 @@ export class PloceComponent {
     'proizvod.naziv',
     'proizvod.cena',
     'proizvod.opis',
+    'listaPesama',
     'brend',
     'izdavackaKuca',
     'godinaIzdanja',

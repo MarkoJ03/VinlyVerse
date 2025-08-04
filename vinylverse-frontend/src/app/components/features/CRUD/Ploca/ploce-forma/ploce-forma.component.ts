@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormaModel } from '../../../../../models/FormaModel';
@@ -8,11 +8,12 @@ import { Zanr } from '../../../../../models/Zanr';
 import { BaseFormComponent } from '../../../../shared/base-form/base-form.component';
 import { Ploca } from '../../../../../models/Ploca';
 import { ProizvodService } from '../../../../../services/proizvod.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ploca-forma',
   standalone: true,
-  imports: [BaseFormComponent],
+  imports: [BaseFormComponent, CommonModule],
   templateUrl: './ploce-forma.component.html',
   styleUrl: './ploce-forma.component.css'
 })
@@ -20,7 +21,10 @@ export class PlocaFormaComponent implements OnInit {
   formaModel: FormaModel | null = null;
   idT: number | null = null;
   zanrovi: Zanr[] = [];
-  slika: File | null = null;
+  postojecaSlikaUrl: string | null = null;
+
+
+
 
   constructor(
     private zanrService: ZanrService,
@@ -30,36 +34,46 @@ export class PlocaFormaComponent implements OnInit {
     private proizvodService: ProizvodService,
   ) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.idT = id ? +id : null;
+ngOnInit(): void {
+  const id = this.route.snapshot.paramMap.get('id');
+  this.idT = id ? +id : null;
 
-    this.zanrService.getAll().subscribe(z => {
-      this.zanrovi = z;
+  this.zanrService.getAll().subscribe(z => {
+    this.zanrovi = z;
 
-      if (this.idT) {
-        this.plocaService.getById(this.idT).subscribe(p => {
-          this.formaModel = this.kreirajModel(p);
-        });
-      } else {
-        this.formaModel = this.kreirajModel();
-      }
-    });
-  }
+    if (this.idT) {
+      this.plocaService.getById(this.idT).subscribe(p => {
+        this.formaModel = this.kreirajModel(p);
 
-  uploadujSliku(): Promise<string> {
+
+        console.log('Putanja slike:', p.proizvod?.slikaPutanja);
+        this.postojecaSlikaUrl = `http://localhost:8080/${p.proizvod?.slikaPutanja}`;
+        console.log('Kombinovan URL:', this.postojecaSlikaUrl);
+      });
+    } else {
+      this.formaModel = this.kreirajModel();
+    }
+  });
+}
+
+
+  @ViewChild(BaseFormComponent) baseFormRef!: BaseFormComponent;
+
+uploadujSliku(): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (!this.slika) {
+    const slika = this.baseFormRef?.getIzabranaSlika();
+    if (!slika) {
       resolve('');
       return;
     }
 
-    this.proizvodService.uploadSlika(this.slika).subscribe({
+    this.proizvodService.uploadSlika(slika).subscribe({
       next: path => resolve(path),
       error: err => reject(err)
     });
   });
 }
+
 
 async sacuvaj(vrednosti: any): Promise<void> {
   try {
@@ -106,12 +120,12 @@ async sacuvaj(vrednosti: any): Promise<void> {
       polja: [
         // PROIZVOD
         { naziv: 'proizvod_naziv', labela: 'Naziv proizvoda', tip: 'text', podrazumevanaVrednost: p?.proizvod?.naziv ?? '', validatori: [Validators.required] },
-        { naziv: 'proizvod_cena', labela: 'Cena', tip: 'text', podrazumevanaVrednost: p?.proizvod?.cena ?? '', validatori: [Validators.required] },
-        { naziv: 'proizvod_opis', labela: 'Opis', tip: 'text', podrazumevanaVrednost: p?.proizvod?.opis ?? '', validatori: [Validators.required] },
+        { naziv: 'proizvod_cena', labela: 'Cena', tip: 'number', podrazumevanaVrednost: p?.proizvod?.cena ?? '', validatori: [Validators.required] },
+        { naziv: 'proizvod_opis', labela: 'Opis', tip: 'textarea', podrazumevanaVrednost: p?.proizvod?.opis ?? '', validatori: [Validators.required] },
         { naziv: 'proizvod_vidljiv', labela: '', tip: 'hidden', podrazumevanaVrednost: true },
 
         // PLOCA
-        { naziv: 'listaPesama', labela: 'Lista pesama', tip: 'text', podrazumevanaVrednost: p?.listaPesama ?? '', validatori: [Validators.required] },
+{ naziv: 'listaPesama', labela: 'Lista pesama', tip: 'pesme', podrazumevanaVrednost: p?.listaPesama ?? '', validatori: [Validators.required] },
         { naziv: 'brend', labela: 'Brend', tip: 'text', podrazumevanaVrednost: p?.brend ?? '', validatori: [Validators.required] },
         { naziv: 'izdavackaKuca', labela: 'Izdavačka kuća', tip: 'text', podrazumevanaVrednost: p?.izdavackaKuca ?? '', validatori: [Validators.required] },
         { naziv: 'godinaIzdanja', labela: 'Godina izdanja', tip: 'text', podrazumevanaVrednost: p?.godinaIzdanja ?? '', validatori: [Validators.required] },
@@ -128,10 +142,8 @@ async sacuvaj(vrednosti: any): Promise<void> {
     };
   }
 
-  onFileSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input?.files?.length) {
-    this.slika = input.files[0];
-  }
-}
+previewUrl: string | ArrayBuffer | null = null;
+
+
+
 }

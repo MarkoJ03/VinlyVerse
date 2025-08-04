@@ -1,3 +1,4 @@
+<div class="tabela-wrapper">
 <table>
   <thead>
     <tr>
@@ -19,11 +20,13 @@
             }
           </td>
         }
-        <td>
-          <button (click)="edit.emit(item)">Izmeni</button>
-          <button (click)="delete.emit(item['id'])">Obriši</button>
-        </td>
+<td>
+  <button class="izmeni-btn" (click)="edit.emit(item)">Izmeni</button>
+  <button class="obrisi-btn" (click)="delete.emit(item['id'])">Obriši</button>
+  <button class="detalji-btn" (click)="goToDetails(item)">Detalji</button>
+</td>
       </tr>
     }
   </tbody>
 </table>
+

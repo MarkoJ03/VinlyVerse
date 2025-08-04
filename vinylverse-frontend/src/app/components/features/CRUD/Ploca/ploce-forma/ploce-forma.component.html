@@ -1,11 +1,7 @@
 <app-base-form
   [formaModel]="formaModel"
+  [prikaziUploadSlike]="true"
+  [postojecaSlikaUrl]="postojecaSlikaUrl"
   (submitEvent)="sacuvaj($event)"
   (cancelEvent)="otkazi()"
 ></app-base-form>
-
-<div>
-  <label for="slika">Slika:</label>
-  <input type="file" id="slika" (change)="onFileSelected($event)" />
-</div>
-

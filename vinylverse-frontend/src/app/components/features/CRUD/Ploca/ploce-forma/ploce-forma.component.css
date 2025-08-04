@@ -1,0 +1,109 @@
+form {
+  background-color: #1a1a1a;
+  color: #FFEEDD;
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+h2 {
+  text-align: center;
+  color: #33ff99;
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #FFEEDD;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #FFEEDD;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #33ff99;
+  outline: none;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  margin-right: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #33ff99;
+  color: #1a1a1a;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #29cc7a;
+}
+
+button[type="button"] {
+  background-color: transparent;
+  color: #FFEEDD;
+  border: 1px solid #FFEEDD;
+}
+
+button[type="button"]:hover {
+  background-color: #FFEEDD;
+  color: #1a1a1a;
+}
+
+.slika-upload {
+  margin-top: 2rem;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #FFEEDD;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #33ff99;
+  color: #1a1a1a;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #29cc7a;
+}
+
+.preview-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.slika-preview {
+  margin-top: 0.5rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(51, 255, 153, 0.3);
+}

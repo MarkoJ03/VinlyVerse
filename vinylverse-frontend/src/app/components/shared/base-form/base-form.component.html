@@ -1,40 +1,67 @@
-<h2>{{ formaModel?.naziv }}</h2>
+
 
 <form [formGroup]="forma">
+  <h2>{{ formaModel?.naziv }}</h2>
   @for (p of formaModel?.polja; track $index) {
-     @if (p.tip === 'hidden') {
-  }
+    @if (p.tip === 'hidden') {
+    }
+    @else if (p.tip === 'textarea') {
+  <div>
+    <label>{{ p.labela }}:</label>
+    <textarea [formControlName]="p.naziv" rows="4"></textarea>
+  </div>}
+  @else if (p.tip === 'pesme') {
+  <div>
+    <label>{{ p.labela }}:</label>
+    <div class="pesma-unos">
+<input [(ngModel)]="novaPesma" [ngModelOptions]="{ standalone: true }" placeholder="Unesi pesmu" />
+      <button type="button" (click)="dodajPesmu()">Dodaj</button>
+    </div>
+    <ul class="pesme-lista">
+      <li *ngFor="let pesma of pesme; let i = index">
+        {{ pesma }}
+        <button type="button" (click)="ukloniPesmu(i)">✕</button>
+      </li>
+    </ul>
+  </div>
+}
+
     @else if (p.tip === 'select') {
       <div>
-        <label>
-          {{ p.labela }}:
-          <select 
-            [formControlName]="p.naziv" 
-            [compareWith]="compareFn"
-            id="">
-
-            <option [ngValue]="null" disabled selected>-- Izaberi --</option>
-
-            @for (opcija of p.opcije; track $index) {
-              <option [ngValue]="opcija">
-                {{ p.displayFn ? p.displayFn(opcija) : opcija }}
-              </option>
-            }
-          </select>
-        </label>
+        <label>{{ p.labela }}:</label>
+        <select [formControlName]="p.naziv" [compareWith]="compareFn">
+          <option [ngValue]="null" disabled selected>-- Izaberi --</option>
+          @for (opcija of p.opcije; track $index) {
+            <option [ngValue]="opcija">
+              {{ p.displayFn ? p.displayFn(opcija) : opcija }}
+            </option>
+          }
+        </select>
       </div>
-    } @else {
+    }
+    @else {
       <div>
-        <label>
-          {{ p.labela }}:
-          <input type="text" [formControlName]="p.naziv" />
-        </label>
+        <label>{{ p.labela }}:</label>
+        <input [type]="p.tip" [formControlName]="p.naziv" />
       </div>
     }
   }
+  
+  <div *ngIf="prikaziUploadSlike" class="slika-upload">
+  <label for="slika">Slika:</label>
+  <input type="file" id="slika" (change)="onFileSelected($event)" />
+<div class="preview-container" *ngIf="previewUrl as url">
+  <p>Pregled slike:</p>
+  <img [src]="url" alt="Pregled slike" class="slika-preview" />
+  <button type="button" class="btn-ukloni" (click)="ukloniSliku()">Ukloni sliku</button>
+</div>
+
+</div>
 
   <div>
     <button type="submit" (click)="onSubmit()">Submit</button>
     <button type="button" (click)="onCancel()">Otkaži</button>
   </div>
 </form>
+
+
