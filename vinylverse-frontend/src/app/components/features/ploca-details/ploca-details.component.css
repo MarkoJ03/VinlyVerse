@@ -3,123 +3,101 @@
 body, html {
   margin: 0;
   padding: 0;
+  background-color: #1a1a1a;
 }
-.details-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  padding: 3rem;
+.record-details-container {
   background-color: #1a1a1a;
   color: #ffeedd;
-  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.album-left {
-  flex: 1;
-  max-width: 400px;
+.record-top-section {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-.album-image {
-  width: 100%;
-  border-radius: 12px;
+.record-cover {
+  max-width: 300px;
+  border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   object-fit: cover;
-}
-
-.album-right {
-  flex: 1;
-  max-width: 600px;
-}
-
-.album-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #f2b134;
-}
-
-.album-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
 }
 
-.album-table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #333;
-  font-size: 1rem;
+.record-info {
+  flex: 1;
+  min-width: 300px;
+  
 }
 
-.album-table td:first-child {
-  font-weight: bold;
+.record-info h1 {
   color: #f2b134;
-  width: 30%;
+  margin-bottom: 0.5rem;
+}
+
+.record-opis {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #dddddd;
+}
+
+
+.info-table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+}
+
+.info-table td {
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+    border-bottom: 1px solid #333;
+    
 }
 
 .add-to-cart {
-  margin-bottom: 2rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.2rem;
   background-color: #c86b3c;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .add-to-cart:hover {
   background-color: #f2b134;
-  transform: scale(1.05);
+}
+
+.tracklist-section {
+  margin-top: 3rem;
+}
+
+.tracklist-section h2 {
+  color: #f2b134;
+  margin-bottom: 1rem;
 }
 
 .tracklist {
-  margin-top: 2rem;
-}
-
-.tracklist h3 {
-  margin-bottom: 1rem;
-  color: #f2b134;
-}
-
-.tracklist ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .tracklist li {
-  margin-bottom: 0.4rem;
-  font-size: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #333;
 }
 
+
 @media (max-width: 768px) {
-  .details-container {
+  .ploca-card {
     flex-direction: column;
-    padding: 2rem;
-    text-align: center;
-  }
-
-  .album-left,
-  .album-right {
-    max-width: 100%;
-  }
-
-  .album-table td {
-    display: block;
-    text-align: left;
-    padding: 0.5rem 0;
-  }
-
-  .album-table td:first-child {
-    display: block;
-    margin-top: 1rem;
-  }
-
-  .album-table tr {
-    border-bottom: 1px solid #333;
-    margin-bottom: 1rem;
-    display: block;
+    padding: 1.5rem;
   }
 }
 .toast {

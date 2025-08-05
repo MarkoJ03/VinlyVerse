@@ -63,3 +63,85 @@ button:hover {
 td:last-child {
   white-space: nowrap;
 }
+button.izmeni-btn {
+  background-color: transparent;
+  color: #33ff99;
+  border: 1px solid #33ff99;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-right: 0.5rem;
+}
+
+button.izmeni-btn:hover {
+  background-color: #33ff99;
+  color: #1a1a1a;
+}
+
+button.obrisi-btn {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button.obrisi-btn:hover {
+  background-color: #ff4d4d;
+  color: #1a1a1a;
+}
+.search-bar {
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.search-bar input {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: #FFEEDD;
+  font-size: 1rem;
+  width: 250px;
+}
+
+.search-bar input::placeholder {
+  color: #aaa;
+}
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #33ff99;
+  background-color: #1a1a1a;
+  color: #FFEEDD;
+  margin-right: 1rem;
+}
+
+.add-button {
+  background-color: #33ff99;
+  color: #1a1a1a;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #28cc7a;
+}

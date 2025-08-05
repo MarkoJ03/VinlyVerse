@@ -54,4 +54,8 @@ export class PloceComponent {
   otkazi(): void {
     this.router.navigate(['/ploca']);
   }
+  dodajPlocu(): void {
+  this.router.navigate(['/plocaForma']);
+}
+
 }

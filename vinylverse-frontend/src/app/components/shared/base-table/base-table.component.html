@@ -1,4 +1,19 @@
+
+
 <div class="tabela-wrapper">
+
+
+<div class="table-controls">
+  <input
+    [(ngModel)]="searchText"
+    (ngModelChange)="applyFilter()"
+    type="text"
+    class="search-input"
+    placeholder="Pretraži..."
+  />
+  <button class="add-button" (click)="goToAdd()">+</button>
+</div>
+  
 <table>
   <thead>
     <tr>
@@ -9,7 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (item of data; track item['id']) {
+    @for (item of filteredData; track item['id']) {
       <tr>
         @for (col of displayedColumns; track col) {
           <td>

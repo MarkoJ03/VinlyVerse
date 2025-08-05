@@ -1,14 +1,13 @@
 <header class="header">
   <div class="logo-container">
-    <img src="assets/logo.png" alt="VinylVerse logo" class="logo-img" />
+    <a [routerLink]="['/']" (click)="closeMenu()"><img src="assets/logo.png" alt="VinylVerse logo" class="logo-img" /></a>
   </div>
 
   <nav [class.open]="menuOpen" class="nav-bar">
     <ul>
-      <li><a routerLink="/" (click)="closeMenu()">Početna</a></li>
-      <li><a routerLink="/ploce" (click)="closeMenu()">Ploče</a></li>
-      <li><a routerLink="/zanrovi" (click)="closeMenu()">Žanrovi</a></li>
-      <li><a routerLink="/kontakt" (click)="closeMenu()">Kontakt</a></li>
+      <li><a [routerLink]="['/ploca']" (click)="closeMenu()">Ploče</a></li>
+      <li><a [routerLink]="['/zanr']" (click)="closeMenu()">Žanrovi</a></li>
+      <li><a [routerLink]="['/about']" (click)="closeMenu()">O nama</a></li>
     </ul>
   </nav>
 

@@ -1,51 +1,57 @@
-    <div class="details-container" *ngIf="ploca">
-    <div class="album-left">
-    <img [src]="getSlikaUrl(ploca.proizvod.slikaPutanja)" [alt]="ploca.proizvod.naziv" class="album-image" />
+<div class="record-details-container" *ngIf="ploca">
+  <div class="record-top-section">
+    <img
+      class="record-cover"
+      [src]="getSlikaUrl(ploca.proizvod.slikaPutanja)"
+      [alt]="ploca.proizvod.naziv"
+    />
 
+    <div class="record-info">
+      <h1>{{ ploca.proizvod.naziv }}</h1>
+      <p class="record-opis">{{ ploca.proizvod.opis }}</p>
+
+      <table class="info-table">
+        <tr>
+          <td><strong>Žanr:</strong></td>
+          <td>{{ ploca.zanr.naziv }}</td>
+        </tr>
+        <tr>
+          <td><strong>Brend:</strong></td>
+          <td>{{ ploca.brend }}</td>
+        </tr>
+        <tr>
+          <td><strong>Izdavačka kuća:</strong></td>
+          <td>{{ ploca.izdavackaKuca }}</td>
+        </tr>
+        <tr>
+          <td><strong>Godina izdanja:</strong></td>
+          <td>{{ ploca.godinaIzdanja }}</td>
+        </tr>
+        <tr>
+          <td><strong>Cena:</strong></td>
+          <td>{{ ploca.proizvod.cena | currency:'RSD' }}</td>
+        </tr>
+      </table>
+
+      <button class="add-to-cart" (click)="dodajUKorpu()">Dodaj u korpu 🛒</button>
     </div>
+  </div>
 
-    <div class="album-right">
-        <h1 class="album-title">{{ ploca.proizvod.naziv }}</h1>
+  <div class="tracklist-section">
+    <h2>Lista pesama</h2>
+    <ul class="tracklist">
+      <li *ngFor="let pesma of ploca.listaPesama.split(',')">
+        🎵 {{ pesma.trim() }}
+      </li>
+    </ul>
+  </div>
+</div>
 
-        <table class="album-table">
-        <tr>
-            <td>Žanr:</td>
-            <td>{{ ploca.zanr.naziv }}</td>
-        </tr>
-        <tr>
-            <td>Brend:</td>
-            <td>{{ ploca.brend }}</td>
-        </tr>
-        <tr>
-            <td>Izdavačka kuća:</td>
-            <td>{{ ploca.izdavackaKuca }}</td>
-        </tr>
-        <tr>
-            <td>Cena:</td>
-            <td>{{ ploca.proizvod.cena | currency:'RSD' }}</td>
-        </tr>
-        </table>
-
-        <button class="add-to-cart" (click)="dodajUKorpu()">Dodaj u korpu 🛒</button>
-
-        <div class="tracklist">
-        <h3>Lista pesama</h3>
-        <ul>
-            <li *ngFor="let pesma of ploca.listaPesama.split(',')">
-            🎵 {{ pesma.trim() }}
-            </li>
-        </ul>
-        </div>
-    </div>
-    </div>
 
     <hr class="zelena-linija" />
     
     <div class="kolekcija-wrapper">
-    <div class="kolekcija-naslov">
 
-        
-    </div>
 
 <section class="carousel-wrapper">
     <h2>Izdvajamo iz naše kolekcije</h2>
