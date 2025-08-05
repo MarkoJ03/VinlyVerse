@@ -18,5 +18,9 @@ getPaginirane(page: number, size: number) {
 getNasumicne(broj: number) {
   return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/nasumicno?broj=${broj}`);
 }
+
+getByZanrId(id: number){
+    return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/zanr/${id}`);
+}
   
 }

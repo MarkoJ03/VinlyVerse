@@ -8,6 +8,7 @@ import { ZanroviComponent } from './components/features/CRUD/Zanr/zanrovi/zanrov
 import { ZanroviFormaComponent } from './components/features/CRUD/Zanr/zanrovi-forma/zanrovi-forma.component';
 import { PloceComponent } from './components/features/CRUD/Ploca/ploce/ploce.component';
 import { PlocaFormaComponent } from './components/features/CRUD/Ploca/ploce-forma/ploce-forma.component';
+import { PlocePageComponent } from './components/features/ploce-page/ploce-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -31,6 +32,11 @@ export const routes: Routes = [
   {path:'plocaForma',
     component: PlocaFormaComponent},
   {path:'ploca/izmeni/:id',
-    component: PlocaFormaComponent}
+    component: PlocaFormaComponent},
 
+      {path:'ploce',
+    component: PlocePageComponent}
+
+
+  
 ];

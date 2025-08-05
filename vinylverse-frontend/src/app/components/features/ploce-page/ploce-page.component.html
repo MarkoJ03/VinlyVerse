@@ -1,0 +1,43 @@
+<div class="ploca-controls">
+  <div class="ploca-controls-left">
+    <input
+      type="text"
+      placeholder="Pretraži po nazivu..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilter()"
+    />
+  </div>
+
+  <div class="ploca-controls-right">
+    <select [(ngModel)]="sortOption" (change)="applySort()">
+      <option value="">Sortiraj</option>
+      <option value="naziv">Naziv (A-Z)</option>
+      <option value="cena">Cena (rastuće)</option>
+      <option value="cenaDesc">Cena (opadajuće)</option>
+    </select>
+
+    <select [(ngModel)]="zanrId" (change)="onZanrChange()">
+      <option value="">Svi žanrovi</option>
+      <option *ngFor="let zanr of zanrovi" [value]="zanr.id">{{ zanr.naziv }}</option>
+    </select>
+  </div>
+</div>
+
+<div class="ploca-grid-container">
+  <ng-container *ngIf="filteredPloce.length > 0; else noRecords">
+    <app-ploca-card
+      *ngFor="let ploca of filteredPloce; trackBy: trackByPlocaId"
+      [id]="ploca.id!"
+      [naziv]="ploca.proizvod.naziv"
+      [izdavackaKuca]="ploca.izdavackaKuca"
+      [zanr]="ploca.zanr.naziv"
+      [cena]="ploca.proizvod.cena"
+      [slika]="ploca.proizvod.slikaPutanja"
+      [slug]="generateSlug(ploca.proizvod.naziv, ploca.izdavackaKuca)"
+    ></app-ploca-card>
+  </ng-container>
+</div>
+
+<ng-template #noRecords>
+  <div class="no-records-message">Nema ploča koje odgovaraju kriterijumima.</div>
+</ng-template>

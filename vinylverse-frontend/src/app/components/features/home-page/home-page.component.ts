@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { PlocaService } from '../../../services/ploca.service';
 import { Ploca } from '../../../models/Ploca';
 import { PlocaCardComponent } from '../../shared/ploca-card/ploca-card.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [PlocaCardComponent, CommonModule],
+  imports: [PlocaCardComponent, CommonModule, RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

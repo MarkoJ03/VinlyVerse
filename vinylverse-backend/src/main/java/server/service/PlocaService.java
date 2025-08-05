@@ -49,7 +49,7 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
     }
 
     @Override
-    protected PlocaDTO convertToDTO(Ploca entity) {
+    public PlocaDTO convertToDTO(Ploca entity) {
         return new PlocaDTO(
             entity.getId(),
             proizvodService.convertToDTO(entity.getProizvod()),
@@ -185,6 +185,9 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
         return convertToDTO(plocaRepository.save(ploca));
     }
 
+    public List<Ploca> findByZanrId(Long id) {
+        return plocaRepository.findByZanrId(id);
+    }
 
 
 }  

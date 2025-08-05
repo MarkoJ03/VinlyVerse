@@ -1,0 +1,53 @@
+.ploca-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  background-color: #121212;
+  color: #FFEEDD;
+  border-bottom: 1px solid #333;
+  gap: 1rem;
+}
+
+.ploca-controls-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.ploca-controls-right {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.ploca-controls input[type="text"],
+.ploca-controls select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1a1a1a;
+  color: #FFEEDD;
+  font-size: 1rem;
+}
+
+.no-records-message {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 3rem;
+  color: #888;
+  animation: fadeIn 0.6s ease-out both;
+}
+
+.ploca-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #1a1a1a;
+  color: #FFEEDD;
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-out both;
+  justify-items: center;
+}
