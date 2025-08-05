@@ -44,7 +44,7 @@ public class DodeljenoPravoPristupaService extends BaseService<DodeljenoPravoPri
     protected DodeljenoPravoPristupa convertToEntity(DodeljenoPravoPristupaDTO dto) {
         DodeljenoPravoPristupa dp = new DodeljenoPravoPristupa();
         dp.setId(dto.getId());
-        dp.setVidljiv(dto.getVidljiv());
+        dp.setVidljiv(true);
 
         if (dto.getPravoPristupa() != null && dto.getPravoPristupa().getId() != null) {
             PravoPristupa pp = new PravoPristupa();

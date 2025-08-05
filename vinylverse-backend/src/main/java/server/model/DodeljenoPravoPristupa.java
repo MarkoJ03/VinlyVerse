@@ -31,6 +31,5 @@ public class DodeljenoPravoPristupa {
     @ManyToOne
     private PravoPristupa pravoPristupa;
     
-    @Column(nullable = false)
-    private Boolean vidljiv = true;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")    private Boolean vidljiv = true;
 }

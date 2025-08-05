@@ -40,4 +40,11 @@ public class PravoPristupaService extends BaseService<PravoPristupa, PravoPristu
         entity.setNaziv(dto.getNaziv());
         entity.setVidljiv(dto.getVidljiv() != null ? dto.getVidljiv() : true);
     }
+    
+    
+    public PravoPristupaDTO findByNaziv(String naziv) {
+        return pravoPristupaRepository.findByNaziv(naziv)
+                .map(this::convertToDTO)
+                .orElse(null);
+    }
 }

@@ -11,19 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class KorisnikDTO {
 	
-	  private Long id;
+	private Long id;
+	private String email;
 
+	private String korisnickoIme;
+	private String lozinka;
+	private Set<DodeljenoPravoPristupaDTO> dodeljenaPravaPristupa;
 
-	    private String email;
-	    
-
-	    private String korisnickoIme;
-
-
-	    private String lozinka;
-
-	    private Set<DodeljenoPravoPristupaDTO> dodeljenaPravaPristupa;
-
-
-	    private Boolean vidljiv = true;
+	private Boolean vidljiv = true;
+	
 }
