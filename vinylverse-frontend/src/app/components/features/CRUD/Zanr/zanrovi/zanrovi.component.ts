@@ -28,7 +28,7 @@ zanrovi: Zanr[] = [];
   }
 
   izmeni(zanr: Zanr): void {
-    this.router.navigate(['/zanr/izmeni', zanr.id]);
+    this.router.navigate(['/zanrovi/izmeni', zanr.id]);
   }
   obrisi(id: number): void {
     this.service.delete(id).subscribe(() => {
@@ -41,6 +41,10 @@ zanrovi: Zanr[] = [];
   }
   
   otkazi(): void {
-    this.router.navigate(['/zanr']);
+    this.router.navigate(['/admin/zanrovi']);
   }
+
+    dodajZanr(): void {
+  this.router.navigate(['/admin/zanrovi/forma']);
+}
 }

@@ -1,6 +1,7 @@
 <div class="form-container">
-  <h2>Prijava</h2>
+
   <form (ngSubmit)="login()">
+      <h2>Prijava</h2>
     <input [(ngModel)]="email" name="email" placeholder="Korisničko ime" required>
     <input [(ngModel)]="lozinka" name="password" type="password" placeholder="Lozinka" required>
     <button type="submit">Uloguj se</button>

@@ -101,7 +101,7 @@ async sacuvaj(vrednosti: any): Promise<void> {
       : this.plocaService.create(dto);
 
     akcija.subscribe({
-      next: () => this.router.navigate(['/ploca']),
+      next: () => this.router.navigate(['/admin/ploce']),
       error: err => console.error('Greška pri snimanju ploče:', err)
     });
   } catch (err) {
@@ -111,7 +111,7 @@ async sacuvaj(vrednosti: any): Promise<void> {
 
 
   otkazi(): void {
-    this.router.navigate(['/ploca']);
+    this.router.navigate(['/admin/ploce']);
   }
 
   private kreirajModel(p?: Ploca): FormaModel {

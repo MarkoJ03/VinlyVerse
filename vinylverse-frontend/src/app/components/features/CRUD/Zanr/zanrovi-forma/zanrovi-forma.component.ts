@@ -41,7 +41,7 @@ export class ZanroviFormaComponent implements OnInit {
       : this.service.create(vrednosti);
 
     akcija.subscribe({
-      next: () => this.router.navigate(['/zanr']),
+      next: () => this.router.navigate(['/admin/zanrovi']),
       error: err => console.error('Greška:', err)
     });
   }
@@ -56,6 +56,6 @@ export class ZanroviFormaComponent implements OnInit {
   }
 
   otkazi(): void {
-    this.router.navigate(['/zanr']);
+    this.router.navigate(['/admin/zanrovi']);
   }
 }

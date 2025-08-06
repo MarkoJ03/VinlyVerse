@@ -38,7 +38,7 @@ export class PloceComponent {
   }
 
   izmeni(ploca: Ploca): void {
-    this.router.navigate(['/ploca/izmeni', ploca.id]);
+    this.router.navigate(['/admin/ploce/izmeni', ploca.id]);
   }
 
   obrisi(id: number): void {
@@ -52,10 +52,10 @@ export class PloceComponent {
   }
 
   otkazi(): void {
-    this.router.navigate(['/ploca']);
+    this.router.navigate(['/admin/ploce']);
   }
   dodajPlocu(): void {
-  this.router.navigate(['/plocaForma']);
+  this.router.navigate(['/admin/ploce/forma']);
 }
 
 }
