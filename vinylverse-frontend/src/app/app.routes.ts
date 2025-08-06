@@ -9,6 +9,8 @@ import { ZanroviFormaComponent } from './components/features/CRUD/Zanr/zanrovi-f
 import { PloceComponent } from './components/features/CRUD/Ploca/ploce/ploce.component';
 import { PlocaFormaComponent } from './components/features/CRUD/Ploca/ploce-forma/ploce-forma.component';
 import { PlocePageComponent } from './components/features/ploce-page/ploce-page.component';
+import { LoginPageComponent } from './components/features/login-page/login-page.component';
+import { RegisterAdminPageComponent } from './components/features/register-admin-page/register-admin-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -35,7 +37,13 @@ export const routes: Routes = [
     component: PlocaFormaComponent},
 
       {path:'ploce',
-    component: PlocePageComponent}
+    component: PlocePageComponent},
+    
+      {path:'login',
+    component: LoginPageComponent},
+          {path:'register-admin',
+    component: RegisterAdminPageComponent}
+
 
 
   

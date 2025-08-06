@@ -1,0 +1,23 @@
+.form-container {
+  width: 300px;
+  margin: 80px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+button {
+  padding: 10px;
+  background-color: #2ecc71;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.error {
+  color: red;
+  margin-top: 10px;
+}

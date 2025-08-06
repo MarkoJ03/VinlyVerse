@@ -25,6 +25,10 @@ export class LoginService {
     );
   }
 
+registerAdmin(adminData: any) {
+  return this.http.post("http://localhost:8080/api/auth/register-admin", adminData, { responseType: 'text' });
+}
+
   getUser() {
     if (this.token) {
       let payload = this.token.split(".")[1];
