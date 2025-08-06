@@ -1,11 +1,12 @@
 :host {
   display: flex;
   justify-content: center;
-  background-color: #1a1a1a;
+background: linear-gradient(#1A1A1A, #0d0d0d);
   min-height: 100vh;
   padding: 2rem 1rem; 
   box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+      color: #FFEEDD;
 }
 
   /* font-family: 'Poppins', sans-serif; */
@@ -24,8 +25,7 @@ h2 {
   margin: 4rem auto;
   padding: 2rem;
   border-radius: 16px;
-  background-color: #121212;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+background: linear-gradient(#1A1A1A, #0d0d0d);  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
   box-sizing: border-box;
 }
 

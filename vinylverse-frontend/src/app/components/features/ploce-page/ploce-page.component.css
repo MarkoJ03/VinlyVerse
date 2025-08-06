@@ -1,10 +1,15 @@
+
+.pozadina{
+  background: linear-gradient(#1A1A1A, #0d0d0d);
+}
+
 .ploca-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   padding: 1rem 2rem;
-  background-color: #121212;
+  /* background-color: #121212; */
   color: #FFEEDD;
   border-bottom: 1px solid #333;
   gap: 1rem;
@@ -45,7 +50,7 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   color: #FFEEDD;
   min-height: 100vh;
   animation: fadeIn 0.8s ease-out both;

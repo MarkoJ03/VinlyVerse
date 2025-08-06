@@ -1,12 +1,17 @@
 :host {
   display: block;
-  background-color: #2B2B2B;
+  /* background-color: #2B2B2B; */
   color: #FFEEDD;
   font-family: 'Poppins', sans-serif;
 }
 
 * {
   font-family: 'Poppins', sans-serif;
+}
+
+.pozadina{  background: linear-gradient(#1A1A1A, #0d0d0d);
+
+/* 1A1A1A */
 }
 
 body {
@@ -69,7 +74,7 @@ a {
   color: #ffeedd;
   max-width: 1300px;
   margin: 0 auto;
-  background-color: #2B2B2B;
+  /* background-color: #2B2B2B; */
 
 }
 
@@ -130,12 +135,12 @@ a {
 
 .carousel-viewport::before {
   left: 0;
-  background: linear-gradient(to right,#2B2B2B, transparent);
+  /* background: linear-gradient(to right,#2B2B2B, transparent); */
 }
 
 .carousel-viewport::after {
   right: 0;
-  background: linear-gradient(to left, #2B2B2B, transparent);
+  /* background: linear-gradient(to left, #2B2B2B, transparent); */
 }
 
 .carousel-wrapper h2 {

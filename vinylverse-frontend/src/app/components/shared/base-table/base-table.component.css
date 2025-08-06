@@ -1,7 +1,7 @@
 
 .tabela-wrapper {
   padding: 2rem 1rem;
-  background-color: #1a1a1a;
+background: linear-gradient(#1A1A1A, #0d0d0d);
   min-height: calc(100vh - 100px); 
   box-sizing: border-box;
   margin: 0 auto; 

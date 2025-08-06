@@ -12,6 +12,7 @@ import { ZanroviComponent } from './components/features/CRUD/Zanr/zanrovi/zanrov
 import { ZanroviFormaComponent } from './components/features/CRUD/Zanr/zanrovi-forma/zanrovi-forma.component';
 import { PloceComponent } from './components/features/CRUD/Ploca/ploce/ploce.component';
 import { PlocaFormaComponent } from './components/features/CRUD/Ploca/ploce-forma/ploce-forma.component';
+import { NotFoundPageComponent } from './components/features/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
   // PUBLIC ROUTES
@@ -59,4 +60,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { requiredRoles: ['ROLE_ADMIN'] }
   },
+  {
+  path: '**',
+  component: NotFoundPageComponent
+}
 ];
