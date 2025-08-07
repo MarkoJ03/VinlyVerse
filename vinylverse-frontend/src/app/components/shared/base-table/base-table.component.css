@@ -30,7 +30,7 @@ thead th {
   text-align: left;
   text-transform: uppercase;
   font-size: 0.9rem;
-  color: #33ff99;
+  color: #2b6f5b;
   border-bottom: 2px solid #333;
 }
 
@@ -44,9 +44,9 @@ tbody tr:hover {
 }
 
 button {
-  background-color: transparent;
-  color: #33ff99;
-  border: 1px solid #33ff99;
+  background-color: #C86B3C;
+  color: #FFEEDD;
+  border: 1px solid #C86B3C;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -56,7 +56,7 @@ button {
 }
 
 button:hover {
-  background-color: #33ff99;
+  background-color: #FF9543;
   color: #1a1a1a;
 }
 
@@ -64,9 +64,9 @@ td:last-child {
   white-space: nowrap;
 }
 button.izmeni-btn {
-  background-color: transparent;
-  color: #33ff99;
-  border: 1px solid #33ff99;
+  background-color: #C86B3C;
+  color: #FFEEDD;
+  border: 1px solid #C86B3C;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -76,7 +76,7 @@ button.izmeni-btn {
 }
 
 button.izmeni-btn:hover {
-  background-color: #33ff99;
+  background-color: #FF9543;
   color: #1a1a1a;
 }
 
@@ -125,16 +125,16 @@ button.obrisi-btn:hover {
   padding: 0.6rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
-  border: 1px solid #33ff99;
+  border: 1px solid #2b6f5b;
   background-color: #1a1a1a;
   color: #FFEEDD;
   margin-right: 1rem;
 }
 
 .add-button {
-  background-color: #33ff99;
-  color: #1a1a1a;
-  border: none;
+  background-color: #C86B3C;
+  color: #FFEEDD;
+  border: 1px solid #C86B3C;
   padding: 0.6rem 1rem;
   font-size: 1.4rem;
   border-radius: 8px;
@@ -143,5 +143,5 @@ button.obrisi-btn:hover {
 }
 
 .add-button:hover {
-  background-color: #28cc7a;
+  background-color: #FF9543;
 }

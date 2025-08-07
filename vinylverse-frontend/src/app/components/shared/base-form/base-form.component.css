@@ -12,7 +12,7 @@ background: linear-gradient(#1A1A1A, #0d0d0d);
   /* font-family: 'Poppins', sans-serif; */
 h2 {
   text-align: center;
-  color: #33ff99;
+  color: #2b6f5b;
   font-size: 1.8rem;
   margin-bottom: 2rem;
   margin-top: 0;
@@ -69,14 +69,18 @@ button {
 }
 
 button[type="submit"] {
-  background-color: #33ff99;
-  color: #1a1a1a;
+  background-color: #C86B3C;
+  color: #FFEEDD;
+  border: 1px solid #C86B3C;
   margin-right: 1rem;
+    transition: all 0.3s ease;
 }
 
 button[type="submit"]:hover {
-  background-color: #29cc7a;
+  background-color: #FF9543;
+  color: #1a1a1a;
 }
+
 
 button[type="button"] {
   background-color: transparent;
@@ -103,7 +107,7 @@ button[type="button"]:hover {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(51, 255, 153, 0.3);
+  box-shadow: 0 0 10px #2b6f5b;
 }
 
 .btn-ukloni {
@@ -137,7 +141,7 @@ textarea {
 }
 
 textarea:focus {
-  border-color: #33ff99;
+  border-color: #2b6f5b;
   outline: none;
 }
 
@@ -167,9 +171,9 @@ textarea:focus {
 }
 
 .pesma-unos button {
-  background-color: #33ff99;
-  color: #1a1a1a;
-  border: none;
+  background-color: #C86B3C;
+  color: #FFEEDD;
+  border: 1px solid #C86B3C;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
@@ -178,7 +182,8 @@ textarea:focus {
 }
 
 .pesma-unos button:hover {
-  background-color: #29cc7a;
+  background-color: #FF9543;
+  color: #1a1a1a;
 }
 
 

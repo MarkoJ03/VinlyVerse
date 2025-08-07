@@ -56,4 +56,14 @@ registerAdmin(adminData: any) {
   getUserByEmail(email: string) {
     return this.http.get<any>(`http://localhost:8080/api/korisnici/email/${email}`);
   }
+
+    isTokenExpired(): boolean {
+    if (!this.token) return true;
+    try {
+      const payload = JSON.parse(atob(this.token.split('.')[1]));
+      const expiry = payload.exp * 1000; 
+      return Date.now() > expiry;
+    } catch (e) {
+      return true;
+    }}
 }

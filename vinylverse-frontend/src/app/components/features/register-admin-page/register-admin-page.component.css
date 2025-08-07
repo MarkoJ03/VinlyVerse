@@ -19,7 +19,7 @@ form {
   background-color: #2c2c2c;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 255, 120, 0.2);
+  box-shadow: 0 0 20px #2b6f5b;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -36,17 +36,16 @@ input {
 }
 
 button {
-  padding: 10px;
-  background-color: #2ecc71;
-  border: none;
-  color: white;
-  font-weight: bold;
+  background-color: #C86B3C;
+  color: #1A1A1A;
+  padding: 12px 28px;
   border-radius: 5px;
-  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #27ae60;
+  background-color: #FF9543;
 }
 
 h2 {

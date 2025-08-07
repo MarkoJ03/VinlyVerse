@@ -5,7 +5,8 @@
     <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required>
     <input [(ngModel)]="lozinka" name="lozinka" type="password" placeholder="Lozinka" required>
     <button type="submit">Registruj admina</button>
-  </form>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  </form>
+
 </div>

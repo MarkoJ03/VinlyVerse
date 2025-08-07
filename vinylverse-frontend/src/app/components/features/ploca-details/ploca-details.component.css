@@ -173,8 +173,8 @@ body, html {
 
 .carousel-controls button {
   background: none;
-  border: 2px solid #33cc66;
-  color: #33cc66;
+  border: 2px solid #2b6f5b;
+  color: #2b6f5b;
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
@@ -184,7 +184,7 @@ body, html {
 }
 
 .carousel-controls button:hover {
-  background-color: #33cc66;
+  background-color: #2b6f5b;
   color: #1a1a1a;
 }
 
