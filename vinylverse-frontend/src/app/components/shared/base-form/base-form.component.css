@@ -104,10 +104,15 @@ button[type="button"]:hover {
 
 .slika-preview {
   margin-top: 0.5rem;
-  max-width: 100%;
+  max-width: 350px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 0 10px #2b6f5b;
+}
+
+.cropper-wrap{
+  max-width: 500px;
+  max-height: 50%;
 }
 
 .btn-ukloni {
