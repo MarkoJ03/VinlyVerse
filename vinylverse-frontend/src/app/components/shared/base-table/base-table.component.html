@@ -30,14 +30,18 @@
           <td>
             @if (isObject(getValueByPath(item, col))) {
               {{ extractDisplayValue(getValueByPath(item, col)) }}
-            } @else {
-              {{ getValueByPath(item, col) }}
-            }
+            }@if (isImagePath(getValueByPath(item, col))) {
+  <img [src]="'http://localhost:8080/' + getValueByPath(item, col)"
+       alt="slika"
+       style="width:150px; height: 150px;  " />
+} @else {
+  {{ getValueByPath(item, col) }}
+}
           </td>
         }
 <td>
   <button class="izmeni-btn" (click)="edit.emit(item)">Izmeni</button>
-  <button class="obrisi-btn" (click)="delete.emit(item['id'])">Obriši</button>
+<button class="obrisi-btn" (click)="onDelete(item['id'])">Obriši</button>
   <button class="detalji-btn" (click)="goToDetails(item)">Detalji</button>
 </td>
       </tr>

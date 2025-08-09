@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, output, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-base-table',
@@ -42,9 +43,21 @@ constructor(private router: Router) {}
     this.edit.emit(item);
   }
 
-  onDelete(id: number) {
-    this.delete.emit(id);
-  }
+onDelete(id: number) {
+  Swal.fire({
+    title: 'Brisanje zapisa',
+    text: 'Da li ste sigurni da želite da obrišete ovaj zapis?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Da, obriši',
+    cancelButtonText: 'Otkaži'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.delete.emit(id);
+      Swal.fire('Obrisano!', 'Zapis je uspešno obrisan.', 'success');
+    }
+  });
+}
 
   isObject(value: any): boolean {
     return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -72,6 +85,11 @@ goToDetails(item: any): void {
 
 goToAdd(): void {
   this.add.emit();
+}
+
+isImagePath(value: any): boolean {
+  if (typeof value !== 'string') return false;
+  return /\.(jpg|jpeg|png|gif|webp)$/i.test(value);
 }
 
 }

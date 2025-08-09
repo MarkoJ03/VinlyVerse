@@ -14,7 +14,7 @@ export class PloceComponent {
 
  ploce: Ploca[] = [];
   kolone: string[] = [
-    'id',
+    'proizvod.slikaPutanja',
     'proizvod.naziv',
     'proizvod.cena',
     'proizvod.opis',
