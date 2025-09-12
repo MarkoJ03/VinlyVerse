@@ -16,12 +16,14 @@ import { Zanr } from '../../../models/Zanr';
   styleUrl: './ploce-page.component.css'
 })
 export class PlocePageComponent implements OnInit {
+  allPloce: Ploca[] = [];
   ploce: Ploca[] = [];
   filteredPloce: Ploca[] = [];
 
   searchTerm: string = '';
   sortOption: string = '';
 
+  private sviZanrovi: Zanr[] = [];
   zanrovi: Zanr[] = [];
   zanrId: number | '' = '';
 
@@ -31,22 +33,41 @@ export class PlocePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ucitajSvePloce();
-    this.zanrService.getAll().subscribe(data => {
-      this.zanrovi = data;
+    this.plocaService.getAll().subscribe(all => {
+      this.allPloce = all;
+      this.ploce = all.slice();
+      this.applyFilter();
+      this.recalcAvailableGenres();
     });
+
+    this.zanrService.getAll().subscribe(data => {
+      this.sviZanrovi = data;
+      this.recalcAvailableGenres();
+    });
+  }
+
+  private recalcAvailableGenres(): void {
+    const ids = new Set<number>(
+      this.allPloce
+        .map(p => p.zanr?.id)
+        .filter((v): v is number => typeof v === 'number')
+    );
+    this.zanrovi = this.sviZanrovi.filter(z => ids.has(z.id));
   }
 
   ucitajSvePloce(): void {
     this.plocaService.getAll().subscribe(data => {
-      this.ploce = data;
+      this.allPloce = data;
+      this.ploce = data.slice();
       this.applyFilter();
+      this.recalcAvailableGenres();
     });
   }
 
   onZanrChange(): void {
     if (this.zanrId === '') {
-      this.ucitajSvePloce(); // svi žanrovi
+      this.ploce = this.allPloce.slice();
+      this.applyFilter();
     } else {
       this.plocaService.getByZanrId(+this.zanrId).subscribe(data => {
         this.ploce = data;

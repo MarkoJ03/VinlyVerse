@@ -53,8 +53,8 @@ public class LoginController {
 	
 	@PostMapping("login")
     public ResponseEntity<String> login(@RequestBody UserLoginDTO user) {
-        System.out.println("Email: " + user.getEmail());
-        System.out.println("Lozinka: " + user.getLozinka());
+//        System.out.println("Email: " + user.getEmail());
+//        System.out.println("Lozinka: " + user.getLozinka());
 
         Korisnik korisnik = korisnikService.findByEmail(user.getEmail());
 
@@ -65,8 +65,8 @@ public class LoginController {
 
         boolean passwordMatches = passwordEncoder.matches(user.getLozinka(), korisnik.getLozinka());
 
-        System.out.println("Lozinka iz baze: " + korisnik.getLozinka());
-        System.out.println("Poklapanje lozinki: " + passwordMatches);
+//        System.out.println("Lozinka iz baze: " + korisnik.getLozinka());
+//        System.out.println("Poklapanje lozinki: " + passwordMatches);
 
         if (passwordMatches) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(korisnik.getEmail());
