@@ -1,34 +1,26 @@
 package server.config;
 
-import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.filter.OncePerRequestFilter;
 import server.utils.TokenUtils;
 
+import java.io.IOException;
 
-public class AuthenticationFilterBean extends UsernamePasswordAuthenticationFilter {
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
-	@Autowired
-	private TokenUtils tokenUtils;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	public void setUserDetailsService(UserDetailsService userDetailsService) {
+public class AuthenticationFilterBean extends OncePerRequestFilter {
+
+    private TokenUtils tokenUtils;
+    private UserDetailsService userDetailsService;
+
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -36,23 +28,28 @@ public class AuthenticationFilterBean extends UsernamePasswordAuthenticationFilt
         this.tokenUtils = tokenUtils;
     }
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
 
-        String token = ((HttpServletRequest) request).getHeader("Authorization");
+        String header = request.getHeader("Authorization");
+        String token = null;
 
-        if (token != null && tokenUtils.validateToken(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            String username = tokenUtils.getUsername(token);
-            UserDetails user = userDetailsService.loadUserByUsername(username);
-
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    user.getUsername(), null, user.getAuthorities());
-
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-            SecurityContextHolder.getContext().setAuthentication(auth);
+        // Standardni "Authorization: Bearer <token>"
+        if (header != null && header.startsWith("Bearer ")) {
+            token = header.substring(7);
         }
 
-        super.doFilter(request, response, chain);
+        if (token != null && tokenUtils.validateToken(token) && getContext().getAuthentication() == null) {
+            String username = tokenUtils.getUsername(token);
+            if (username != null) {
+                UserDetails user = userDetailsService.loadUserByUsername(username);
+                var auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                getContext().setAuthentication(auth);
+            }
+        }
+
+        chain.doFilter(request, response);
     }
 }

@@ -61,7 +61,6 @@ public class DodeljenoPravoPristupaService extends BaseService<DodeljenoPravoPri
         return dp;
     }
 
-    @Override
     protected void updateEntityFromDto(DodeljenoPravoPristupaDTO dto, DodeljenoPravoPristupa entity) {
         entity.setVidljiv(dto.getVidljiv());
 
