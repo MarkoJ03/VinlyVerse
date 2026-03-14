@@ -4,7 +4,10 @@
       <h2>Prijava</h2>
     <input [(ngModel)]="email" name="email" placeholder="Korisničko ime" required>
     <input [(ngModel)]="lozinka" name="password" type="password" placeholder="Lozinka" required>
-    <button type="submit">Uloguj se</button>
-      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <button type="submit" [disabled]="countdown > 0">Uloguj se</button>
+      <p *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+        <span *ngIf="countdown > 0"> ({{ countdown }}s)</span>
+      </p>
   </form>
 </div>
