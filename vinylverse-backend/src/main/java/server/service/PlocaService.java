@@ -1,13 +1,11 @@
 package server.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -139,26 +137,21 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
 
     
     public List<PlocaDTO> getPaginiranePloce(int page, int size) {
-        List<Ploca> svePloce = new ArrayList<>();
-        plocaRepository.findAll().forEach(svePloce::add); 
+        if (page < 0 || size <= 0) {
+            return List.of();
+        }
 
-        int fromIndex = page * size;
-        int toIndex = Math.min(fromIndex + size, svePloce.size());
-
-        if (fromIndex > svePloce.size()) return List.of(); 
-
-        return svePloce.subList(fromIndex, toIndex).stream()
+        return plocaRepository.findAll(PageRequest.of(page, size)).stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
 
     public List<PlocaDTO> getNasumicnePloce(int broj) {
-        List<Ploca> svePloce = new ArrayList<>();
-        plocaRepository.findAll().forEach(svePloce::add);
+        if (broj <= 0) {
+            return List.of();
+        }
 
-        Collections.shuffle(svePloce);
-        return svePloce.stream()
-            .limit(broj)
+        return plocaRepository.findRandom(PageRequest.of(0, broj)).stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
