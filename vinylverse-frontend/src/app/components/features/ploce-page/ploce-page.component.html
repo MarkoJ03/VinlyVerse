@@ -6,7 +6,7 @@
       type="text"
       placeholder="Pretraži po nazivu..."
       [(ngModel)]="searchTerm"
-      (ngModelChange)="applyFilter()"
+      (ngModelChange)="onSearchTermChange($event)"
     />
   </div>
 
@@ -39,8 +39,15 @@
     ></app-ploca-card>
   </ng-container>
 </div>
-</div>
+
 
 <ng-template #noRecords>
   <div class="no-records-message">Nema ploča koje odgovaraju kriterijumima.</div>
 </ng-template>
+
+<div class="pagination-controls" *ngIf="zanrId === ''">
+  <button type="button" (click)="prethodnaStranica()" [disabled]="page <= 0">◀ Prethodna</button>
+  <span>Strana {{ page + 1 }}</span>
+  <button type="button" (click)="sledecaStranica()" [disabled]="!hasNext">Sledeća ▶</button>
+</div>
+</div>

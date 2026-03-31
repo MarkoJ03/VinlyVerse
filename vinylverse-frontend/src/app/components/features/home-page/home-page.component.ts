@@ -16,12 +16,16 @@ export class HomePageComponent implements OnInit {
   ploce: Ploca[] = [];
   startIndex: number = 0;
   visibleCount = 3;
+  private carouselBroj = 6;
 
   constructor(private plocaService: PlocaService) {}
 
   ngOnInit(): void {
-    this.plocaService.getAll().subscribe(data => {
-      this.ploce = data;
+    this.plocaService.getNasumicne(this.carouselBroj).subscribe({
+      next: data => {
+        this.ploce = data;
+        this.startIndex = 0;
+      }
     });
   }
 

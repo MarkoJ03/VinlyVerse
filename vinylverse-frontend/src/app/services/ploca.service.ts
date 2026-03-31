@@ -19,6 +19,13 @@ getNasumicne(broj: number) {
   return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/nasumicno?broj=${broj}`);
 }
 
+searchPloce(term: string, page: number, size: number) {
+  const encoded = encodeURIComponent(term ?? '');
+  return this.http.get<Ploca[]>(
+    `http://localhost:8080/api/ploca/search?term=${encoded}&page=${page}&size=${size}`
+  );
+}
+
 getByZanrId(id: number){
     return this.http.get<Ploca[]>(`http://localhost:8080/api/ploca/zanr/${id}`);
 }

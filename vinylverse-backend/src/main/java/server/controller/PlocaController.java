@@ -38,6 +38,14 @@ public class PlocaController extends BaseController<Ploca, PlocaDTO, Long> {
     public ResponseEntity<List<PlocaDTO>> getNasumicno(@RequestParam(defaultValue = "5") int broj) {
         return ResponseEntity.ok(plocaService.getNasumicnePloce(broj));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PlocaDTO>> searchPloce(
+            @RequestParam String term,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "15") int size) {
+        return ResponseEntity.ok(plocaService.searchPloce(term, page, size));
+    }
     
     @GetMapping("/zanr/{id}")
     public ResponseEntity<List<PlocaDTO>> getPloceByZanr(@PathVariable Long id) {

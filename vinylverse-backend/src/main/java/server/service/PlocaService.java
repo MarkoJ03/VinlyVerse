@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -152,6 +153,22 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
         }
 
         return plocaRepository.findRandom(PageRequest.of(0, broj)).stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+
+    public List<PlocaDTO> searchPloce(String term, int page, int size) {
+        if (page < 0 || size <= 0) {
+            return List.of();
+        }
+
+        String normalized = term == null ? "" : term.trim();
+        if (normalized.isEmpty()) {
+            return getPaginiranePloce(page, size);
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        return plocaRepository.searchByProizvodNaziv(normalized, pageable).stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
