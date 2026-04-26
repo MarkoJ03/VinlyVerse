@@ -7,11 +7,16 @@ import { LoginPageComponent } from './components/features/login-page/login-page.
 import { RegisterAdminPageComponent } from './components/features/register-admin-page/register-admin-page.component';
 import { PlocePageComponent } from './components/features/ploce-page/ploce-page.component';
 import { PlocaDetailsComponent } from './components/features/ploca-details/ploca-details.component';
+import { CartPageComponent } from './components/features/cart-page/cart-page.component';
+import { CheckoutSuccessComponent } from './components/features/checkout-success/checkout-success.component';
+import { CheckoutCancelComponent } from './components/features/checkout-cancel/checkout-cancel.component';
 
 import { ZanroviComponent } from './components/features/CRUD/Zanr/zanrovi/zanrovi.component';
 import { ZanroviFormaComponent } from './components/features/CRUD/Zanr/zanrovi-forma/zanrovi-forma.component';
 import { PloceComponent } from './components/features/CRUD/Ploca/ploce/ploce.component';
 import { PlocaFormaComponent } from './components/features/CRUD/Ploca/ploce-forma/ploce-forma.component';
+import { NarudzbineComponent } from './components/features/CRUD/Narudzbine/narudzbine/narudzbine.component';
+import { NarudzbinaDetaljiComponent } from './components/features/CRUD/Narudzbine/narudzbina-detalji/narudzbina-detalji.component';
 import { NotFoundPageComponent } from './components/features/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
@@ -19,6 +24,9 @@ export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: 'ploce', component: PlocePageComponent },
+  { path: 'korpa', component: CartPageComponent },
+  { path: 'checkout/success', component: CheckoutSuccessComponent },
+  { path: 'checkout/cancel', component: CheckoutCancelComponent },
   { path: 'detalji/:id/:slug', component: PlocaDetailsComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register-admin', component: RegisterAdminPageComponent },
@@ -57,6 +65,18 @@ export const routes: Routes = [
   {
     path: 'admin/ploce/izmeni/:id',
     component: PlocaFormaComponent,
+    canActivate: [authGuard],
+    data: { requiredRoles: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'admin/narudzbine',
+    component: NarudzbineComponent,
+    canActivate: [authGuard],
+    data: { requiredRoles: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'admin/narudzbine/:id',
+    component: NarudzbinaDetaljiComponent,
     canActivate: [authGuard],
     data: { requiredRoles: ['ROLE_ADMIN'] }
   },

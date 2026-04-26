@@ -9,16 +9,25 @@
     <ul>
       
       <li><a [routerLink]="['/ploce']" (click)="closeMenu()">Ploče</a></li>
+      <li>
+        <a [routerLink]="['/korpa']" (click)="closeMenu()">
+          Korpa
+          @if (cartService.brojStavki() > 0) {
+            <span class="korpa-badge">{{ cartService.brojStavki() }}</span>
+          }
+        </a>
+      </li>
       <!-- <li><a [routerLink]="['/zanr']" (click)="closeMenu()">Žanrovi</a></li> -->
       <li><a [routerLink]="['/about']" (click)="closeMenu()">O nama</a></li>
 
 
       <li *ngIf="isAdmin()"><a [routerLink]="['/admin/ploce']" (click)="closeMenu()">CRUD Ploče</a></li>
       <li *ngIf="isAdmin()"><a [routerLink]="['/admin/zanrovi']" (click)="closeMenu()">CRUD Žanrovi</a></li>
+      <li *ngIf="isAdmin()"><a [routerLink]="['/admin/narudzbine']" (click)="closeMenu()">Sve porudžbine</a></li>
       <!-- <li *ngIf="isAdmin()"><a [routerLink]="['/admin/dashboard']" (click)="closeMenu()">Dashboard</a></li> -->
-      <li *ngIf="isLoggedIn()">
-  <button (click)="logout()" class="logout-btn">Odjava</button>
-</li>
+      <li *ngIf="isAdmin()">
+        <button (click)="logout()" class="logout-btn" type="button">Odjava</button>
+      </li>
 
     </ul>
   </nav>

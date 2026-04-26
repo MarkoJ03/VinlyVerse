@@ -4,6 +4,7 @@ import { Ploca } from '../../../models/Ploca';
 import { PlocaService } from '../../../services/ploca.service';
 import { CommonModule } from '@angular/common';
 import { PlocaCardComponent } from '../../shared/ploca-card/ploca-card.component';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-ploca-details',
@@ -15,7 +16,11 @@ export class PlocaDetailsComponent implements OnInit{
 
 ploca: any;
 
-  constructor(private route: ActivatedRoute, private ploceService: PlocaService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private ploceService: PlocaService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     const id = this.route.params.subscribe(params => {
@@ -36,15 +41,17 @@ ploca: any;
 showToast = false;
 
 dodajUKorpu() {
-  console.log('Dodato u korpu:', this.ploca.proizvod.naziv);
-
-
+  if (!this.ploca) {
+    return;
+  }
+  const ploca: Ploca = this.ploca as Ploca;
+  this.cartService.dodaj(ploca);
 
   this.showToast = true;
 
   setTimeout(() => {
     this.showToast = false;
-  }, 3000); 
+  }, 3000);
 }
 
 

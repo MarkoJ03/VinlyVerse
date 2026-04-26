@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login.service';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../../services/cart.service';
 
 
 @Component({
@@ -14,7 +15,11 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   menuOpen = false;
 
-  constructor(public loginService: LoginService,public router: Router) {}
+  constructor(
+    public loginService: LoginService,
+    public router: Router,
+    public cartService: CartService
+  ) {}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

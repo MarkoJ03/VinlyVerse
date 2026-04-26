@@ -1,0 +1,96 @@
+<div class="pozadina cart-wrap">
+  <h1>Korpa</h1>
+
+  <p *ngIf="greska" class="greska">{{ greska }}</p>
+
+  <ng-container *ngIf="cartService.stavkeKorpe().length === 0">
+    <p class="prazno">Korpa je prazna.</p>
+    <a routerLink="/ploce" class="link-nazad">← Nazad na ploče</a>
+  </ng-container>
+
+  <ng-container *ngIf="cartService.stavkeKorpe().length > 0">
+    <ul class="lista">
+      <li *ngFor="let s of cartService.stavkeKorpe()" class="stavka">
+        <img *ngIf="s.slikaPutanja" [src]="slikaUrl(s.slikaPutanja)" [alt]="s.naziv" class="thumb" />
+        <div class="info">
+          <span class="naziv">{{ s.naziv }}</span>
+          <span class="cena">{{ s.cena | currency: 'RSD' }}</span>
+        </div>
+        <button type="button" class="btn-ukloni" (click)="ukloni(s.plocaId)">Ukloni</button>
+      </li>
+    </ul>
+
+    <p class="ukupno">
+      Ukupno: <strong>{{ cartService.ukupno() | currency: 'RSD' }}</strong>
+    </p>
+
+    <div class="checkout-form">
+      <h2>Kontakt</h2>
+      <label>
+        E-mail
+        <input
+          type="email"
+          name="gostEmail"
+          [(ngModel)]="gostEmail"
+          autocomplete="email"
+        />
+      </label>
+
+      <h2>Adresa za dostavu</h2>
+      <label>
+        Ime i prezime
+        <input type="text" name="adresaIme" [(ngModel)]="adresaIme" autocomplete="name" />
+      </label>
+      <label>
+        Ulica i broj
+        <input type="text" name="adresaUlica" [(ngModel)]="adresaUlica" autocomplete="street-address" />
+      </label>
+      <div class="grid-2">
+        <label>
+          Grad
+          <input type="text" name="adresaGrad" [(ngModel)]="adresaGrad" />
+        </label>
+        <label>
+          Poštanski broj
+          <input type="text" name="adresaPostanskiBroj" [(ngModel)]="adresaPostanskiBroj" />
+        </label>
+      </div>
+      <div class="grid-2">
+        <label>
+          Država
+          <input type="text" name="adresaDrzava" [(ngModel)]="adresaDrzava" />
+        </label>
+        <label>
+          Telefon
+          <input type="tel" name="adresaTelefon" [(ngModel)]="adresaTelefon" autocomplete="tel" />
+        </label>
+      </div>
+
+      <h2>Način plaćanja</h2>
+      <div class="nacin-choices">
+        <label class="radio-line">
+          <input type="radio" name="nacin" value="POUZEC" [(ngModel)]="nacinPlacanja" />
+          Pouzećem (prilikom preuzimanja)
+        </label>
+        <label class="radio-line">
+          <input type="radio" name="nacin" value="PAYPAL" [(ngModel)]="nacinPlacanja" />
+          PayPal (online)
+        </label>
+      </div>
+
+      <div class="footer-korpe">
+        <div class="akcije">
+          <button type="button" class="btn-sekundarno" (click)="isprazni()">Isprazni korpu</button>
+          <button
+            type="button"
+            class="btn-primarno"
+            (click)="naruci()"
+            [disabled]="ucitava"
+          >
+            Naruči
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -5,9 +5,19 @@
     <p>{{ izdavackaKuca }}</p>
     <p>{{ zanr }}</p>
     <p class="cena">{{ cena }}</p>
-  <a [routerLink]="['/detalji', id, slug]">
-  <button>Detalji</button>
-  </a>
+  <div class="card-actions">
+    <a [routerLink]="['/detalji', id, slug]">
+      <button type="button">Detalji</button>
+    </a>
+    <button
+      *ngIf="prikaziDodajUKorpu"
+      type="button"
+      class="btn-korpa"
+      (click)="onDodajUKorpu($event)"
+    >
+      U korpu
+    </button>
+  </div>
 
   </div>
 </div>

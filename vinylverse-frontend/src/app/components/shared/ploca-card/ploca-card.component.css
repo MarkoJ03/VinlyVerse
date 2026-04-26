@@ -44,8 +44,19 @@
   margin-top: 4px;
 }
 
-.record-card button {
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
   margin-top: 10px;
+}
+
+.record-card .card-actions button {
+  margin-top: 0;
+}
+
+.record-card button {
   background-color: #C86B3C;
   color: #1A1A1A;
   border: none;
@@ -57,6 +68,16 @@
 
 .record-card button:hover {
   background-color: #FF9543;
+}
+
+.record-card button.btn-korpa {
+  background-color: transparent;
+  color: #2ecc71;
+  border: 1px solid #2b6f5b;
+}
+
+.record-card button.btn-korpa:hover {
+  background-color: #1e3d2f;
 }
 
 .cena{

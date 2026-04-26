@@ -11,7 +11,9 @@
     class="search-input"
     placeholder="Pretraži..."
   />
+  @if (showAddButton) {
   <button class="add-button" (click)="goToAdd()">+</button>
+  }
 </div>
   
 <table>
@@ -20,7 +22,9 @@
       @for (col of displayedColumns; track col) {
         <th>{{ col | titlecase }}</th>
       }
-      <th>Akcije</th>
+      @if (showActions) {
+        <th>Akcije</th>
+      }
     </tr>
   </thead>
   <tbody>
@@ -39,11 +43,19 @@
 }
           </td>
         }
+@if (showActions) {
 <td>
-  <button class="izmeni-btn" (click)="edit.emit(item)">Izmeni</button>
-<button class="obrisi-btn" (click)="onDelete(item['id'])">Obriši</button>
-  <button class="detalji-btn" (click)="goToDetails(item)">Detalji</button>
+  @if (showEdit) {
+    <button class="izmeni-btn" (click)="edit.emit(item)">Izmeni</button>
+  }
+  @if (showDelete) {
+    <button class="obrisi-btn" (click)="onDelete(item['id'])">Obriši</button>
+  }
+  @if (showDetails) {
+    <button class="detalji-btn" (click)="goToDetails(item)">Detalji</button>
+  }
 </td>
+}
       </tr>
     }
   </tbody>

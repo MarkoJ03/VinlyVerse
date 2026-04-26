@@ -1,0 +1,275 @@
+.pozadina.checkout-receipt {
+  min-height: 60vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  background: #0d0d0d;
+  box-sizing: border-box;
+}
+
+.greska {
+  background: #5c2a2a;
+  border: 1px solid #c86b3c;
+  color: #ffeedd;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.ucitava {
+  color: #ffeedd;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Papir / digitalni račun */
+.receipt-paper {
+  background: linear-gradient(180deg, #faf6ef 0%, #f0ebe3 100%);
+  color: #1a1a1a;
+  border-radius: 2px;
+  box-shadow: 0 2px 0 #c4b8a8, 0 8px 24px rgba(0, 0, 0, 0.35);
+  padding: 1.75rem 1.5rem 1.5rem;
+  border: 1px solid #d8cfc2;
+  position: relative;
+}
+
+/* „Perforirani“ gornji ivičnjak */
+.receipt-paper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #2b6f5b 0px,
+    #2b6f5b 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.35;
+  border-radius: 2px 2px 0 0;
+}
+
+.receipt-brand {
+  text-align: center;
+  margin-bottom: 1.25rem;
+  padding-top: 0.25rem;
+}
+
+.brand-name {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1e4d3d;
+}
+
+.receipt-type {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: #5c564c;
+  margin-top: 0.35rem;
+}
+
+.mono {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+}
+
+.receipt-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px dashed #b8a994;
+  border-bottom: 1px dashed #b8a994;
+  margin-bottom: 0.75rem;
+}
+
+.receipt-meta .label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b6358;
+}
+
+.receipt-meta .value {
+  display: block;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.receipt-kupac {
+  margin-bottom: 1rem;
+}
+
+.receipt-kupac .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b6358;
+}
+
+.kupac-email {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+}
+
+.receipt-stavke {
+  margin: 1rem 0;
+}
+
+.stavke-hdr {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6b6358;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #c4b8a8;
+}
+
+.stavka-lin {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dotted #b8a994;
+}
+
+.stavka-tekst .naziv {
+  font-weight: 500;
+}
+
+.cena {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.receipt-totals {
+  margin: 0.5rem 0 1rem;
+  padding: 0.5rem 0 0;
+}
+
+.receipt-totals .red {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.receipt-totals .red.ukupno {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem 0 0.25rem;
+  border-top: 2px solid #1e4d3d;
+  margin-top: 0.5rem;
+}
+
+.zbir {
+  color: #1e4d3d;
+}
+
+.status-pilula {
+  background: #e8e2d6;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.dostava-blok {
+  margin-top: 1rem;
+  padding: 0.9rem 0.75rem;
+  background: rgba(30, 77, 61, 0.06);
+  border: 1px solid #b8a994;
+  border-radius: 4px;
+}
+
+.dostava-blok h3 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #5c564c;
+  margin: 0 0 0.5rem;
+}
+
+.dostava-linija {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+}
+
+.pouzete-nap {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  color: #1e4d3d;
+  font-style: italic;
+}
+
+.platne-akcije {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.btn-sekundarno,
+.btn-primarno {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #1e4d3d;
+}
+
+.btn-sekundarno {
+  background: transparent;
+  color: #1a1a1a;
+}
+
+.btn-primarno {
+  background: #1e4d3d;
+  color: #faf6ef;
+}
+
+.btn-primarno:disabled,
+.btn-sekundarno:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.uspeh {
+  color: #1e4d3d;
+  font-weight: 700;
+  margin: 0.75rem 0 0;
+}
+
+.footer-tekst {
+  font-size: 0.75rem;
+  color: #6b6358;
+  margin: 1.25rem 0 0.5rem;
+  text-align: center;
+}
+
+.link-dalje {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #1e4d3d;
+  font-weight: 600;
+}
+
+@media (min-width: 600px) {
+  .pozadina.checkout-receipt {
+    max-width: 420px;
+  }
+}

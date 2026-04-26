@@ -9,6 +9,7 @@ import { PlocaService } from '../../../services/ploca.service';
 import { PlocaCardComponent } from '../../shared/ploca-card/ploca-card.component';
 import { ZanrService } from '../../../services/zanr.service';
 import { Zanr } from '../../../models/Zanr';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-ploce-page',
@@ -35,9 +36,12 @@ export class PlocePageComponent implements OnInit {
 
   private searchSubject = new Subject<string>();
 
+  korpaPoruka: string | null = null;
+
   constructor(
     private plocaService: PlocaService,
-    private zanrService: ZanrService
+    private zanrService: ZanrService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -189,5 +193,13 @@ export class PlocePageComponent implements OnInit {
 
   trackByPlocaId(index: number, ploca: Ploca): number {
     return ploca.id!;
+  }
+
+  dodajUKorpu(ploca: Ploca): void {
+    const dodato = this.cartService.dodaj(ploca);
+    this.korpaPoruka = dodato
+      ? 'Dodato u korpu.'
+      : 'Ova ploča je već u korpi.';
+    setTimeout(() => (this.korpaPoruka = null), 2500);
   }
 }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,14 +12,23 @@ import { LoginService } from '../../../services/login.service';
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   email = '';
   lozinka = '';
   errorMessage = '';
   countdown = 0;
   private countdownInterval: any;
+  private returnUrl: string | null = null;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+  }
 
   startCountdown(seconds: number) {
     this.countdown = seconds;
@@ -49,7 +58,8 @@ export class LoginPageComponent {
           clearInterval(this.countdownInterval);
           this.countdownInterval = null;
         }
-        this.router.navigate(['/']);
+        const target = this.returnUrl && this.returnUrl.startsWith('/') ? this.returnUrl : '/';
+        this.router.navigateByUrl(target);
       },
       error: (error: any) => {
         if (error.status === 401) {

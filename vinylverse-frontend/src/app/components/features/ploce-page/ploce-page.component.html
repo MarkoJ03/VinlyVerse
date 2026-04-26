@@ -1,5 +1,6 @@
 
 <div class="pozadina">
+<p *ngIf="korpaPoruka" class="korpa-toast">{{ korpaPoruka }}</p>
 <div class="ploca-controls">
   <div class="ploca-controls-left">
     <input
@@ -36,6 +37,8 @@
       [cena]="ploca.proizvod.cena"
       [slika]="ploca.proizvod.slikaPutanja"
       [slug]="generateSlug(ploca.proizvod.naziv, ploca.izdavackaKuca)"
+      [prikaziDodajUKorpu]="true"
+      (dodajUKorpu)="dodajUKorpu(ploca)"
     ></app-ploca-card>
   </ng-container>
 </div>

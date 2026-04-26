@@ -1,0 +1,19 @@
+<div class="table-controls-narudzbine">
+  <label for="statusFilter">Filter:</label>
+  <select id="statusFilter" [(ngModel)]="filterStatus" (ngModelChange)="promenaFiltera()">
+    <option value="SVE">Sve</option>
+    <option value="NEPOSLATE">Neposlate</option>
+    <option value="POSLATE">Poslate</option>
+  </select>
+</div>
+
+<app-base-table
+  [data]="narudzbine"
+  [displayedColumns]="kolone"
+  [showAddButton]="false"
+  [showActions]="true"
+  [showEdit]="false"
+  [showDelete]="false"
+  [showDetails]="true"
+  (details)="otvoriDetalje($event)">
+</app-base-table>

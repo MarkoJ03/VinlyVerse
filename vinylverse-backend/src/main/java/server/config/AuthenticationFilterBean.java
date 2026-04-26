@@ -17,6 +17,38 @@ import static org.springframework.security.core.context.SecurityContextHolder.ge
 
 public class AuthenticationFilterBean extends OncePerRequestFilter {
 
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        if (path == null) {
+            return false;
+        }
+        String ctx = request.getContextPath();
+        if (ctx != null && !ctx.isEmpty() && path.startsWith(ctx)) {
+            path = path.substring(ctx.length());
+        }
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+        while (path.length() > 1 && path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        if (path.startsWith("/api/narudzbina/guest")) {
+            return true;
+        }
+        String m = request.getMethod();
+        if (!"POST".equals(m) && !"OPTIONS".equals(m)) {
+            return false;
+        }
+        if (path.matches("/api/narudzbina/\\d+/pay-mock")
+                || path.matches("/api/narudzbina/\\d+/paypal/create-order")
+                || path.matches("/api/narudzbina/\\d+/paypal/capture")) {
+            return true;
+        }
+        return false;
+    }
+
     private TokenUtils tokenUtils;
     private UserDetailsService userDetailsService;
 
@@ -35,7 +67,7 @@ public class AuthenticationFilterBean extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
         String token = null;
 
-        // Standardni "Authorization: Bearer <token>"
+
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
         }

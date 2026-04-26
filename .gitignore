@@ -1,3 +1,14 @@
 target/
 .metadata
 .metadata/
+vinylverse-backend/target/
+vinylverse-frontend/dist/
+vinylverse-frontend/.angular/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+vinylverse-backend/.env
+vinylverse-backend/.env.*
+!vinylverse-backend/.env.example

@@ -1,0 +1,113 @@
+<div class="pozadina checkout-receipt">
+  <p *ngIf="greska" class="greska">{{ greska }}</p>
+
+  <p *ngIf="ucitava" class="ucitava">Učitavanje računa…</p>
+
+  <div *ngIf="narudzbina && !ucitava" class="receipt-paper" aria-label="Elektronski račun">
+    <div class="receipt-brand">
+      <span class="brand-name">VinylVerse</span>
+      <span class="receipt-type">ELEKTRONSKI RAČUN / POTVRDA PORUDŽBINE</span>
+    </div>
+
+    <div class="receipt-meta">
+      <div>
+        <span class="label">Broj</span>
+        <span class="value mono">#{{ narudzbina.id }}</span>
+      </div>
+      <div *ngIf="narudzbina.datumKreiranja">
+        <span class="label">Datum</span>
+        <span class="value">{{ narudzbina.datumKreiranja | date: 'dd.MM.yyyy, HH:mm' }}</span>
+      </div>
+    </div>
+
+    <ng-container *ngIf="narudzbina.gostEmail as mail">
+      <div class="receipt-kupac">
+        <span class="label">Kupac</span>
+        <p class="kupac-email mono">{{ mail }}</p>
+      </div>
+    </ng-container>
+
+    <div class="receipt-stavke">
+      <div class="stavke-hdr">
+        <span>Stavka</span>
+        <span class="cena">Iznos</span>
+      </div>
+      <div *ngFor="let s of narudzbina.stavke" class="stavka-lin">
+        <div class="stavka-tekst">
+          <span class="naziv">{{ s.nazivPloce || 'Ploča #' + s.plocaId }}</span>
+        </div>
+        <span class="cena mono">{{ s.ukupno | currency: 'RSD' }}</span>
+      </div>
+    </div>
+
+    <div class="receipt-totals">
+      <div class="red ukupno">
+        <span>Za naplatu</span>
+        <span class="mono zbir">{{ narudzbina.ukupanIznos | currency: 'RSD' }}</span>
+      </div>
+      <div class="red">
+        <span>Status</span>
+        <span class="status-pilula">{{ statusTekst(narudzbina.status) }}</span>
+      </div>
+      <div class="red">
+        <span>Način plaćanja</span>
+        <span>{{ narudzbina.nacinPlacanja === 'PAYPAL' ? 'PayPal' : 'Pouzećem' }}</span>
+      </div>
+    </div>
+
+    <div class="dostava-blok" *ngIf="narudzbina.adresaIme">
+      <h3>Adresa za dostavu</h3>
+      <p class="dostava-linija">{{ narudzbina.adresaIme }}</p>
+      <p class="dostava-linija">{{ narudzbina.adresaUlica }}</p>
+      <p class="dostava-linija">
+        {{ narudzbina.adresaPostanskiBroj }} {{ narudzbina.adresaGrad }},
+        {{ narudzbina.adresaDrzava }}
+      </p>
+      <p class="dostava-linija" *ngIf="narudzbina.adresaTelefon">Tel: {{ narudzbina.adresaTelefon }}</p>
+    </div>
+
+    <p
+      *ngIf="narudzbina.nacinPlacanja === 'POUZEC' && narudzbina.status === 'POTVRDJENA'"
+      class="pouzete-nap"
+    >
+      Plaćanje prilikom preuzimanja (pouzećem).
+    </p>
+
+    <div
+      class="platne-akcije"
+      *ngIf="
+        narudzbina.nacinPlacanja === 'PAYPAL' &&
+        narudzbina.status !== 'PAID' &&
+        narudzbina.status !== 'CANCELLED'
+      "
+    >
+      <button
+        *ngIf="narudzbina.nacinPlacanja === 'PAYPAL' && !narudzbina.providerOrderId"
+        type="button"
+        class="btn-primarno"
+        (click)="otvoriPayPal()"
+        [disabled]="ucitava"
+      >
+        Nastavi na PayPal
+      </button>
+      <button
+        *ngIf="narudzbina.nacinPlacanja === 'PAYPAL' && narudzbina.providerOrderId"
+        type="button"
+        class="btn-primarno"
+        (click)="potvrdiPayPalCapture()"
+        [disabled]="ucitava"
+      >
+        Završi uplatu (potvrdi PayPal)
+      </button>
+      <button type="button" class="btn-sekundarno" (click)="platiMock()" [disabled]="ucitava">
+        Plati (mock) — lokalni test
+      </button>
+    </div>
+
+    <p *ngIf="narudzbina.status === 'PAID'" class="uspeh">Uplata je evidentirana</p>
+
+    <p class="footer-tekst">Zahvaljujemo vam na kupovini. Za pitanja koristite kontakt na dnu stranice.</p>
+
+    <a routerLink="/ploce" class="link-dalje">Nastavi kupovinu</a>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="pozadina checkout-receipt">
+  <p *ngIf="greska" class="greska">{{ greska }}</p>
+  <p *ngIf="ucitava" class="ucitava">Učitavanje porudžbine...</p>
+
+  <div *ngIf="narudzbina && !ucitava" class="receipt-paper">
+    <div class="receipt-brand">
+      <span class="brand-name">Admin pregled</span>
+      <span class="receipt-type">PORUDŽBINA #{{ narudzbina.id }}</span>
+    </div>
+
+    <div class="receipt-meta">
+      <div>
+        <span class="label">Datum</span>
+        <span class="value">{{ narudzbina.datumKreiranja | date: 'dd.MM.yyyy, HH:mm' }}</span>
+      </div>
+      <div>
+        <span class="label">Status</span>
+        <span class="value">{{ statusTekst(narudzbina.status) }}</span>
+      </div>
+    </div>
+
+    <div class="receipt-kupac">
+      <span class="label">Kupac</span>
+      <p class="kupac-email mono">{{ narudzbina.gostEmail || narudzbina.korisnikEmail || ('Korisnik #' + narudzbina.korisnikId) }}</p>
+    </div>
+
+    <div class="receipt-stavke">
+      <div class="stavke-hdr">
+        <span>Stavka</span>
+        <span class="cena">Iznos</span>
+      </div>
+      <div *ngFor="let s of narudzbina.stavke" class="stavka-lin">
+        <div class="stavka-tekst">
+          <span class="naziv">{{ s.nazivPloce || ('Ploča #' + s.plocaId) }}</span>
+        </div>
+        <span class="cena mono">{{ s.ukupno | currency: 'RSD' }}</span>
+      </div>
+    </div>
+
+    <div class="receipt-totals">
+      <div class="red ukupno">
+        <span>Ukupno</span>
+        <span class="mono zbir">{{ narudzbina.ukupanIznos | currency: 'RSD' }}</span>
+      </div>
+      <div class="red">
+        <span>Način plaćanja</span>
+        <span>{{ narudzbina.nacinPlacanja === 'PAYPAL' ? 'PayPal' : 'Pouzećem' }}</span>
+      </div>
+    </div>
+
+    <div class="dostava-blok" *ngIf="narudzbina.adresaIme">
+      <h3>Adresa za dostavu</h3>
+      <p class="dostava-linija">{{ narudzbina.adresaIme }}</p>
+      <p class="dostava-linija">{{ narudzbina.adresaUlica }}</p>
+      <p class="dostava-linija">
+        {{ narudzbina.adresaPostanskiBroj }} {{ narudzbina.adresaGrad }},
+        {{ narudzbina.adresaDrzava }}
+      </p>
+      <p class="dostava-linija" *ngIf="narudzbina.adresaTelefon">Tel: {{ narudzbina.adresaTelefon }}</p>
+    </div>
+
+    <div class="admin-akcije">
+      <button
+        type="button"
+        class="btn-primarno"
+        (click)="oznaciKaoPoslatu()"
+        [disabled]="menjaStatus || narudzbina.status === 'POSLATA'">
+        {{ narudzbina.status === 'POSLATA' ? 'Već označena kao poslata' : 'Označi kao poslata' }}
+      </button>
+      <a routerLink="/admin/narudzbine" class="link-dalje">Nazad na sve porudžbine</a>
+    </div>
+  </div>
+</div>

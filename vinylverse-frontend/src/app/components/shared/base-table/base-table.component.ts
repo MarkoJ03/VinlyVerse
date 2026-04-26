@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, output, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -14,6 +14,11 @@ import Swal from 'sweetalert2';
 export class BaseTableComponent <T extends { [key: string]: any }>implements OnChanges {
   @Input() data: T[] = [];
   @Input() displayedColumns: string[] = [];
+  @Input() showAddButton = true;
+  @Input() showActions = true;
+  @Input() showEdit = true;
+  @Input() showDelete = true;
+  @Input() showDetails = true;
 
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<number>();
@@ -33,7 +38,6 @@ constructor(private router: Router) {}
     this.filteredData = this.data.filter(item =>
       this.displayedColumns.some(col => {
         const value = this.getValueByPath(item, col);
-        console.log("ee");
         return String(value).toLowerCase().includes(term);
       })
     );
@@ -79,6 +83,10 @@ onDelete(id: number) {
 }
 
 goToDetails(item: any): void {
+  if (this.details.observed) {
+    this.details.emit(item.id);
+    return;
+  }
   const slug = this.generateSlug(item.proizvod?.naziv, item.izdavackaKuca);
   this.router.navigate(['/detalji', item.id, slug]);
 }
