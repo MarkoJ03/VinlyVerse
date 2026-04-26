@@ -80,6 +80,8 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.GET, "/api/zanr", "/api/zanr/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/slike", "/api/slike/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/proizvod", "/api/proizvod/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/narudzbina/moje").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/narudzbina").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
