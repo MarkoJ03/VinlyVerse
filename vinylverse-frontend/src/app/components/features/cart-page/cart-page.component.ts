@@ -77,7 +77,11 @@ export class CartPageComponent implements OnInit, OnDestroy {
     this.cartService.isprazni();
   }
 
-  naruci(): void {
+  potvrdaNarudzbineOtvorena = false;
+  potvrdaNarudzbineNaslov = '';
+  potvrdaNarudzbinePoruka = '';
+
+  pokreniNarudzbinu(): void {
     if (!this.gostMejlIzgledaOk()) {
       this.prikaziToast(
         'Unesite ispravan e-mail za kontakt (za status porudžbine).',
@@ -95,6 +99,38 @@ export class CartPageComponent implements OnInit, OnDestroy {
     const stavke = this.cartService.stavkeKorpe();
     if (stavke.length === 0) {
       this.prikaziToast('Korpa je prazna.', 'warn');
+      return;
+    }
+
+    const nacin =
+      this.nacinPlacanja === 'PAYPAL'
+        ? 'PayPal (online)'
+        : 'Pouzećem (prilikom preuzimanja)';
+    const suma = this.cartService.ukupno();
+    const sumaTxt =
+      typeof suma === 'number' && !Number.isNaN(suma)
+        ? `${suma.toLocaleString('sr-RS')} RSD`
+        : '';
+    this.potvrdaNarudzbineNaslov = 'Potvrditi naručivanje?';
+    this.potvrdaNarudzbinePoruka = `Ukupno ${stavke.length} stavki${
+      sumaTxt ? ` (${sumaTxt})` : ''
+    }, ${nacin}. Da li želite da pošaljete porudžbinu?`;
+    this.potvrdaNarudzbineOtvorena = true;
+    this.cdr.detectChanges();
+  }
+
+  zatvoriPotvrduNarudzbine(): void {
+    this.potvrdaNarudzbineOtvorena = false;
+  }
+
+  potvrdiINaruci(): void {
+    this.potvrdaNarudzbineOtvorena = false;
+    this.izvrsiNarudzbinu();
+  }
+
+  private izvrsiNarudzbinu(): void {
+    const stavke = this.cartService.stavkeKorpe();
+    if (stavke.length === 0) {
       return;
     }
 

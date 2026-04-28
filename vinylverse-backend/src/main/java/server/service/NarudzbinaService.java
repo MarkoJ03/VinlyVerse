@@ -48,6 +48,9 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
     @Autowired
     private PayPalService payPalService;
 
+    @Autowired
+    private RacunEmailService racunEmailService;
+
     @Value("${paypal.return-url:http://localhost:4200/checkout/success}")
     private String paypalReturnUrl;
 
@@ -174,9 +177,7 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
                 .toList();
     }
 
-    /**
-     * Gost: bez naloga, obavezna adresa, mejl i tajni token u odgovoru.
-     */
+   
     public NarudzbinaDTO saveGuestOrder(NarudzbinaDTO dto) {
         validirajKasuZaCheckout(dto);
         validirajGostEmail(dto.getGostEmail());
@@ -184,10 +185,12 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
         dto.setGostPristupniToken(UUID.randomUUID().toString());
 
         podesiPocetniStatusPoNacinu(dto);
-        return save(dto);
+        NarudzbinaDTO sacuvana = save(dto);
+        oznaciPloceKaoNevidljive(sacuvana.getId());
+        posaljiRacunAkoTreba(sacuvana.getId());
+        return sacuvana;
     }
 
-    /** Samo admin (test / rucne narudzbine sa korisnikom u sistemu). */
     public NarudzbinaDTO saveAdminNarudzbinu(NarudzbinaDTO dto) {
         if (dto.getKorisnikId() == null) {
             throw new BadRequestException("Admin kreirana narudzbina mora imati korisnikId");
@@ -215,6 +218,7 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
         narudzbina.setStatus(StatusNarudzbine.PAID);
         narudzbina.setPaymentCapturedAt(LocalDateTime.now());
         narudzbinaRepository.save(narudzbina);
+        racunEmailService.posaljiDigitalniRacunAkoMoguce(narudzbina);
         return convertToDTO(narudzbina);
     }
 
@@ -261,7 +265,39 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
         narudzbina.setStatus(StatusNarudzbine.PAID);
         narudzbina.setPaymentCapturedAt(LocalDateTime.now());
         narudzbinaRepository.save(narudzbina);
+        racunEmailService.posaljiDigitalniRacunAkoMoguce(narudzbina);
         return new PayPalCaptureResponseDTO(narudzbina.getId(), narudzbina.getStatus().name(), narudzbina.getProviderOrderId());
+    }
+
+    private void posaljiRacunAkoTreba(Long narudzbinaId) {
+        if (narudzbinaId == null) {
+            return;
+        }
+        narudzbinaRepository.findById(narudzbinaId).ifPresent(n -> {
+            if (n.getNacinPlacanja() == NacinPlacanja.POUZEC && n.getStatus() == StatusNarudzbine.POTVRDJENA) {
+                racunEmailService.posaljiDigitalniRacunAkoMoguce(n);
+            }
+        });
+    }
+
+    private void oznaciPloceKaoNevidljive(Long narudzbinaId) {
+        if (narudzbinaId == null) {
+            return;
+        }
+        narudzbinaRepository.findById(narudzbinaId).ifPresent(n -> {
+            for (StavkaNarudzbine stavka : n.getStavke()) {
+                Long plocaId = stavka.getPloca() != null ? stavka.getPloca().getId() : null;
+                if (plocaId == null) {
+                    continue;
+                }
+                plocaRepository.findById(plocaId).ifPresent(ploca -> {
+                    if (!Boolean.FALSE.equals(ploca.getVidljiv())) {
+                        ploca.setVidljiv(false);
+                        plocaRepository.save(ploca);
+                    }
+                });
+            }
+        });
     }
 
     private Korisnik resolveKorisnik(Long korisnikId) {

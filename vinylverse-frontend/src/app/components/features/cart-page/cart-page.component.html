@@ -83,7 +83,7 @@
           <button
             type="button"
             class="btn-primarno"
-            (click)="naruci()"
+            (click)="pokreniNarudzbinu()"
             [disabled]="ucitava"
           >
             Naruči
@@ -92,6 +92,29 @@
       </div>
     </div>
   </ng-container>
+</div>
+
+<div
+  class="potvrda-backdrop"
+  *ngIf="potvrdaNarudzbineOtvorena"
+  (click)="zatvoriPotvrduNarudzbine()"
+  aria-hidden="true"
+></div>
+<div
+  *ngIf="potvrdaNarudzbineOtvorena"
+  class="potvrda-modal"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="'potvrda-narudzbina-naslov'"
+>
+  <h2 id="potvrda-narudzbina-naslov" class="potvrda-naslov">{{ potvrdaNarudzbineNaslov }}</h2>
+  <p class="potvrda-tekst">{{ potvrdaNarudzbinePoruka }}</p>
+  <div class="potvrda-akcije">
+    <button type="button" class="btn-sekundarno" (click)="zatvoriPotvrduNarudzbine()">Otkaži</button>
+    <button type="button" class="btn-primarno" (click)="potvrdiINaruci()" [disabled]="ucitava">
+      Da, naruči
+    </button>
+  </div>
 </div>
 
 <div

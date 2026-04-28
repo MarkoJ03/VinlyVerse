@@ -142,7 +142,7 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
             return List.of();
         }
 
-        return plocaRepository.findAll(PageRequest.of(page, size)).stream()
+        return plocaRepository.findByVidljivTrue(PageRequest.of(page, size)).stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }
@@ -196,7 +196,7 @@ public class PlocaService extends BaseService<Ploca, PlocaDTO, Long> {
     }
 
     public List<Ploca> findByZanrId(Long id) {
-        return plocaRepository.findByZanrId(id);
+        return plocaRepository.findByZanrIdAndVidljivTrue(id);
     }
 
 

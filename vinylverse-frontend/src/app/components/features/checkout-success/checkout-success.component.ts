@@ -16,6 +16,12 @@ export class CheckoutSuccessComponent implements OnInit {
   greska: string | null = null;
   ucitava = true;
 
+  potvrdaOtvorena = false;
+  potvrdaNaslov = '';
+  potvrdaPoruka = '';
+  private poslePotvrde: (() => void) | null = null;
+  pouzecKorisnikPotvrdio = false;
+
   private pristupniToken: string | null = null;
   private orderId: number | null = null;
 
@@ -60,6 +66,14 @@ export class CheckoutSuccessComponent implements OnInit {
   }
 
   otvoriPayPal(): void {
+    this.otvoriPotvrdu(
+      'Nastaviti na PayPal?',
+      'Otvoriće se PayPal da odobrite uplatu. Nastaviti?',
+      () => this.izvrsiPayPalCreateOrder()
+    );
+  }
+
+  private izvrsiPayPalCreateOrder(): void {
     const id = this.orderId;
     if (id == null || !this.pristupniToken) {
       return;
@@ -86,6 +100,14 @@ export class CheckoutSuccessComponent implements OnInit {
   }
 
   platiMock(): void {
+    this.otvoriPotvrdu(
+      'Mock uplata (lokalni test)?',
+      'Ovo simulira uspešnu uplatu bez pravog novca. Potvrditi?',
+      () => this.izvrsiPlatiMock()
+    );
+  }
+
+  private izvrsiPlatiMock(): void {
     const id = this.orderId;
     if (id == null || !this.pristupniToken) {
       return;
@@ -105,6 +127,14 @@ export class CheckoutSuccessComponent implements OnInit {
   }
 
   potvrdiPayPalCapture(): void {
+    this.otvoriPotvrdu(
+      'Završiti uplatu preko PayPal-a?',
+      'Evidentiraćemo uplatu kao plaćenu. Nastaviti?',
+      () => this.izvrsiPayPalCapture()
+    );
+  }
+
+  private izvrsiPayPalCapture(): void {
     const id = this.orderId;
     if (id == null || !this.pristupniToken) {
       return;
@@ -120,6 +150,34 @@ export class CheckoutSuccessComponent implements OnInit {
         this.greska = this.porukaGreske(err, 'Greška pri potvrdi PayPal uplate.');
       },
     });
+  }
+
+  zapocniPotvrduPouzeca(): void {
+    this.otvoriPotvrdu(
+      'Potvrdi porudžbinu',
+      'Potvrđujete porudžbinu sa plaćanjem pouzećem prilikom preuzimanja?',
+      () => {
+        this.pouzecKorisnikPotvrdio = true;
+      }
+    );
+  }
+
+  zatvoriPotvrdu(): void {
+    this.potvrdaOtvorena = false;
+    this.poslePotvrde = null;
+  }
+
+  potvrdiDijalog(): void {
+    const fn = this.poslePotvrde;
+    this.zatvoriPotvrdu();
+    fn?.();
+  }
+
+  private otvoriPotvrdu(naslov: string, poruka: string, posle: () => void): void {
+    this.potvrdaNaslov = naslov;
+    this.potvrdaPoruka = poruka;
+    this.poslePotvrde = posle;
+    this.potvrdaOtvorena = true;
   }
 
   private osvezi(): void {

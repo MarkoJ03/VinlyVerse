@@ -11,11 +11,13 @@ import org.springframework.data.repository.query.Param;
 import server.model.Ploca;
 
 public interface PlocaRepository extends JpaRepository<Ploca, Long> {
-	List<Ploca> findByZanrId(Long zanrId);
+	List<Ploca> findByZanrIdAndVidljivTrue(Long zanrId);
 
-	@Query("SELECT p FROM Ploca p ORDER BY function('RAND')")
+	@Query("SELECT p FROM Ploca p WHERE p.vidljiv = true ORDER BY function('RAND')")
 	Page<Ploca> findRandom(Pageable pageable);
 
-	@Query("SELECT p FROM Ploca p WHERE lower(p.proizvod.naziv) LIKE lower(concat('%', :term, '%')) ORDER BY p.id")
+	@Query("SELECT p FROM Ploca p WHERE p.vidljiv = true AND lower(p.proizvod.naziv) LIKE lower(concat('%', :term, '%')) ORDER BY p.id")
 	Page<Ploca> searchByProizvodNaziv(@Param("term") String term, Pageable pageable);
+
+	Page<Ploca> findByVidljivTrue(Pageable pageable);
 }

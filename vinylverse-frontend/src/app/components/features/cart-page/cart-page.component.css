@@ -262,3 +262,45 @@ h1 {
     transform: translateX(-50%) translateY(-20px);
   }
 }
+
+.potvrda-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 10000;
+}
+
+.potvrda-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10001;
+  width: min(420px, calc(100vw - 2rem));
+  box-sizing: border-box;
+  padding: 1.35rem 1.25rem 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #2b6f5b;
+  border-radius: 10px;
+  color: #ffeedd;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.potvrda-naslov {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: #f2b134;
+}
+
+.potvrda-tekst {
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.potvrda-akcije {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: flex-end;
+}

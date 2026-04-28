@@ -78,6 +78,25 @@
     </p>
 
     <div
+      class="pouzec-potvrda-akcije"
+      *ngIf="
+        narudzbina.nacinPlacanja === 'POUZEC' &&
+        narudzbina.status === 'POTVRDJENA' &&
+        !pouzecKorisnikPotvrdio
+      "
+    >
+      <button type="button" class="btn-primarno" (click)="zapocniPotvrduPouzeca()">
+        Potvrdi porudžbinu
+      </button>
+    </div>
+    <p
+      *ngIf="narudzbina.nacinPlacanja === 'POUZEC' && pouzecKorisnikPotvrdio"
+      class="uspeh pouzec-hvala"
+    >
+      Hvala — porudžbina je prihvaćena.
+    </p>
+
+    <div
       class="platne-akcije"
       *ngIf="
         narudzbina.nacinPlacanja === 'PAYPAL' &&
@@ -113,6 +132,29 @@
     <p class="footer-tekst">Zahvaljujemo vam na kupovini. Za pitanja koristite kontakt na dnu stranice.</p>
 
     <a routerLink="/ploce" class="link-dalje">Nastavi kupovinu</a>
+  </div>
+</div>
+
+<div
+  class="potvrda-backdrop"
+  *ngIf="potvrdaOtvorena"
+  (click)="zatvoriPotvrdu()"
+  aria-hidden="true"
+></div>
+<div
+  *ngIf="potvrdaOtvorena"
+  class="potvrda-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="potvrda-racun-naslov"
+>
+  <h2 id="potvrda-racun-naslov" class="potvrda-naslov">{{ potvrdaNaslov }}</h2>
+  <p class="potvrda-tekst">{{ potvrdaPoruka }}</p>
+  <div class="potvrda-akcije">
+    <button type="button" class="btn-sekundarno" (click)="zatvoriPotvrdu()">Otkaži</button>
+    <button type="button" class="btn-primarno" (click)="potvrdiDijalog()" [disabled]="ucitava">
+      Potvrdi
+    </button>
   </div>
 </div>
 </div>

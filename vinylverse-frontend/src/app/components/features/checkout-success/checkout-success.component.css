@@ -292,3 +292,53 @@
     max-width: 420px;
   }
 }
+
+.pouzec-potvrda-akcije {
+  margin: 1rem 0 0.5rem;
+}
+
+.pouzec-hvala {
+  margin-top: 0.5rem;
+}
+
+.potvrda-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 10000;
+}
+
+.potvrda-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10001;
+  width: min(400px, calc(100vw - 2rem));
+  box-sizing: border-box;
+  padding: 1.35rem 1.25rem 1.2rem;
+  background: linear-gradient(180deg, #faf6ef 0%, #f0ebe3 100%);
+  color: #1a1a1a;
+  border: 1px solid #d8cfc2;
+  border-radius: 6px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+
+.potvrda-naslov {
+  margin: 0 0 0.65rem;
+  font-size: 1.1rem;
+  color: #1e4d3d;
+}
+
+.potvrda-tekst {
+  margin: 0 0 1.15rem;
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
+
+.potvrda-akcije {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
