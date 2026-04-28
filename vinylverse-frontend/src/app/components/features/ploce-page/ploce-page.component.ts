@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, of } from 'rxjs';
@@ -18,7 +18,7 @@ import { CartService } from '../../../services/cart.service';
   templateUrl: './ploce-page.component.html',
   styleUrl: './ploce-page.component.css'
 })
-export class PlocePageComponent implements OnInit {
+export class PlocePageComponent implements OnInit, OnDestroy {
   allPloce: Ploca[] = [];
   ploce: Ploca[] = [];
   filteredPloce: Ploca[] = [];
@@ -36,12 +36,17 @@ export class PlocePageComponent implements OnInit {
 
   private searchSubject = new Subject<string>();
 
-  korpaPoruka: string | null = null;
+  showToast = false;
+  toastPoruka = '';
+  toastWarn = false;
+  private toastHideTimer?: ReturnType<typeof setTimeout>;
+  private alive = true;
 
   constructor(
     private plocaService: PlocaService,
     private zanrService: ZanrService,
-    private cartService: CartService
+    private cartService: CartService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -87,6 +92,13 @@ export class PlocePageComponent implements OnInit {
       this.sviZanrovi = data;
       this.recalcAvailableGenres();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.alive = false;
+    if (this.toastHideTimer) {
+      clearTimeout(this.toastHideTimer);
+    }
   }
 
   private recalcAvailableGenres(): void {
@@ -183,7 +195,7 @@ export class PlocePageComponent implements OnInit {
     this.page = 0;
 
     if (this.zanrId !== '') {
-      // Lokalno filtriranje (nema backend poziva)
+
       this.applyFilter();
       return;
     }
@@ -197,9 +209,33 @@ export class PlocePageComponent implements OnInit {
 
   dodajUKorpu(ploca: Ploca): void {
     const dodato = this.cartService.dodaj(ploca);
-    this.korpaPoruka = dodato
-      ? 'Dodato u korpu.'
+    if (this.toastHideTimer) {
+      clearTimeout(this.toastHideTimer);
+      this.toastHideTimer = undefined;
+    }
+
+    this.toastWarn = !dodato;
+    this.toastPoruka = dodato
+      ? 'Ploča dodata u korpu!'
       : 'Ova ploča je već u korpi.';
-    setTimeout(() => (this.korpaPoruka = null), 2500);
+
+this.showToast = false;
+    this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      if (!this.alive) {
+        return;
+      }
+      this.showToast = true;
+      this.cdr.detectChanges();
+      this.toastHideTimer = setTimeout(() => {
+        if (!this.alive) {
+          return;
+        }
+        this.showToast = false;
+        this.toastHideTimer = undefined;
+        this.cdr.detectChanges();
+      }, 3000);
+    });
   }
 }

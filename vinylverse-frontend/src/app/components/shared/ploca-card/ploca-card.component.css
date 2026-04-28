@@ -35,8 +35,22 @@
 }
 
 .record-card .title {
-  font-weight: bold;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
   margin-bottom: 4px;
+}
+
+.card-sub {
+  font-style: italic;
+  font-size: 0.92rem;
+  opacity: 0.92;
+  margin: 0.1rem 0;
+}
+
+.card-zanr {
+  color: #c4a574;
+  font-weight: 500;
 }
 
 .record-card .cena {
@@ -80,12 +94,14 @@
   background-color: #1e3d2f;
 }
 
-.cena{
-  font-family: 'Roboto Mono', monospace;
-font-size: 14px;
+.cena {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
 }
 
-.godina{
-  font-family: 'Roboto Mono', monospace;
-font-size: 14px;
+.godina {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
 }

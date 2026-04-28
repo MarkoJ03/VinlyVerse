@@ -1,7 +1,6 @@
+
 <div class="pozadina cart-wrap">
   <h1>Korpa</h1>
-
-  <p *ngIf="greska" class="greska">{{ greska }}</p>
 
   <ng-container *ngIf="cartService.stavkeKorpe().length === 0">
     <p class="prazno">Korpa je prazna.</p>
@@ -93,4 +92,13 @@
       </div>
     </div>
   </ng-container>
+</div>
+
+<div
+  class="toast"
+  *ngIf="toastVisible"
+  [class.toast-warn]="toastTip === 'warn'"
+  [class.toast-error]="toastTip === 'error'"
+>
+  {{ toastPoruka }}
 </div>

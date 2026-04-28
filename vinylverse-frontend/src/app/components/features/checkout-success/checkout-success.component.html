@@ -1,3 +1,4 @@
+<div class="pozadina">
 <div class="pozadina checkout-receipt">
   <p *ngIf="greska" class="greska">{{ greska }}</p>
 
@@ -51,7 +52,10 @@
       </div>
       <div class="red">
         <span>Način plaćanja</span>
-        <span>{{ narudzbina.nacinPlacanja === 'PAYPAL' ? 'PayPal' : 'Pouzećem' }}</span>
+        <span
+          class="nacinal-vrednost"
+          [class.nacinal-italic]="narudzbina.nacinPlacanja === 'POUZEC'"
+        >{{ narudzbina.nacinPlacanja === 'PAYPAL' ? 'PayPal' : 'Pouzećem' }}</span>
       </div>
     </div>
 
@@ -110,4 +114,5 @@
 
     <a routerLink="/ploce" class="link-dalje">Nastavi kupovinu</a>
   </div>
+</div>
 </div>

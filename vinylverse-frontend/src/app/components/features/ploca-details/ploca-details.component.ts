@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Ploca } from '../../../models/Ploca';
 import { PlocaService } from '../../../services/ploca.service';
@@ -12,14 +12,18 @@ import { CartService } from '../../../services/cart.service';
   templateUrl: './ploca-details.component.html',
   styleUrl: './ploca-details.component.css'
 })
-export class PlocaDetailsComponent implements OnInit{
+export class PlocaDetailsComponent implements OnInit, OnDestroy {
 
 ploca: any;
+
+  private toastHideTimer?: ReturnType<typeof setTimeout>;
+  private alive = true;
 
   constructor(
     private route: ActivatedRoute,
     private ploceService: PlocaService,
-    private cartService: CartService
+    private cartService: CartService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +42,13 @@ ploca: any;
     
   }
 
+  ngOnDestroy(): void {
+    this.alive = false;
+    if (this.toastHideTimer) {
+      clearTimeout(this.toastHideTimer);
+    }
+  }
+
 showToast = false;
 
 dodajUKorpu() {
@@ -47,11 +58,29 @@ dodajUKorpu() {
   const ploca: Ploca = this.ploca as Ploca;
   this.cartService.dodaj(ploca);
 
-  this.showToast = true;
+  if (this.toastHideTimer) {
+    clearTimeout(this.toastHideTimer);
+    this.toastHideTimer = undefined;
+  }
 
-  setTimeout(() => {
-    this.showToast = false;
-  }, 3000);
+  this.showToast = false;
+  this.cdr.detectChanges();
+
+  queueMicrotask(() => {
+    if (!this.alive) {
+      return;
+    }
+    this.showToast = true;
+    this.cdr.detectChanges();
+    this.toastHideTimer = setTimeout(() => {
+      if (!this.alive) {
+        return;
+      }
+      this.showToast = false;
+      this.toastHideTimer = undefined;
+      this.cdr.detectChanges();
+    }, 3000);
+  });
 }
 
 

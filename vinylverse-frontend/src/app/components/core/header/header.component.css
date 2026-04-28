@@ -1,5 +1,5 @@
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
   color: white;
   margin: 0;
   padding: 0;
@@ -38,9 +38,13 @@
 }
 
 .nav-bar li a {
+  font-family: var(--font-display);
   text-decoration: none;
-  color: #FFEEDD;
-  font-size: 1.1rem;
+  color: #ffeedd;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   position: relative;
   transition: color 0.3s ease;
 }
@@ -120,13 +124,17 @@
   }
 }
 .logout-btn {
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
   background-color: transparent;
   border: 1px solid #2ecc71;
   color: #2ecc71;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
   margin-left: 1rem;
 }
 

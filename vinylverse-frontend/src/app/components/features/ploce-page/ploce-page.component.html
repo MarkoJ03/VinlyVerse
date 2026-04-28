@@ -1,6 +1,5 @@
 
 <div class="pozadina">
-<p *ngIf="korpaPoruka" class="korpa-toast">{{ korpaPoruka }}</p>
 <div class="ploca-controls">
   <div class="ploca-controls-left">
     <input
@@ -49,8 +48,12 @@
 </ng-template>
 
 <div class="pagination-controls" *ngIf="zanrId === ''">
-  <button type="button" (click)="prethodnaStranica()" [disabled]="page <= 0">◀ Prethodna</button>
+  <button type="button" (click)="prethodnaStranica()" [disabled]="page <= 0">◀ </button>
   <span>Strana {{ page + 1 }}</span>
-  <button type="button" (click)="sledecaStranica()" [disabled]="!hasNext">Sledeća ▶</button>
+  <button type="button" (click)="sledecaStranica()" [disabled]="!hasNext"> ▶</button>
 </div>
+</div>
+
+<div class="toast" *ngIf="showToast" [class.toast-warn]="toastWarn">
+  {{ toastPoruka }}
 </div>

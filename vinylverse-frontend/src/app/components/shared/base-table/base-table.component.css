@@ -13,7 +13,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin: 2rem 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
   background-color: #1a1a1a;
   color: #FFEEDD;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);

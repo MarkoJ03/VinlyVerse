@@ -1,8 +1,41 @@
 .footer {
   background-color: #0d0d0d;
   text-align: center;
-  padding: 20px;
-  font-size: 14px;
-  color:white;
+  border-top: 1px solid #2b6f5b;
+    padding: 20px;
+  font-size: 0.95rem;
+  color: #ffeedd;
+  font-family: var(--font-body);
+}
 
+.footer-line {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.footer-tagline {
+  margin-top: 0.35rem;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #c4a574;
+  letter-spacing: 0.03em;
+}
+
+.admin-foot {
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.admin-foot a {
+  color: #f2b134;
+  text-decoration: none;
+  font-style: italic;
+}
+
+.admin-foot a:hover {
+  text-decoration: underline;
 }

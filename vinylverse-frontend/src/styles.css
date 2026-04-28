@@ -1,2 +1,43 @@
-*{
-    margin: 0}
+* {
+  margin: 0;
+}
+
+:root {
+  --font-body: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  --font-display: 'Cinzel', 'Palatino Linotype', Georgia, serif;
+  --font-mono: 'Roboto Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
+.akcent-italic {
+  font-style: italic;
+  letter-spacing: 0.02em;
+}

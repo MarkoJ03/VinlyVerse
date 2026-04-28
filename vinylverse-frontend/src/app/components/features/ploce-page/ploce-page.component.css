@@ -1,9 +1,36 @@
-.korpa-toast {
-  text-align: center;
-  padding: 0.5rem 1rem;
-  background: #1e3d2f;
-  color: #2ecc71;
-  border-bottom: 1px solid #2b6f5b;
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 1rem;
+  z-index: 9999;
+  animation: fadeInOut 3s ease forwards;
+}
+
+.toast-warn {
+  background-color: #c86b3c;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  10%,
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
 }
 
 .pozadina{

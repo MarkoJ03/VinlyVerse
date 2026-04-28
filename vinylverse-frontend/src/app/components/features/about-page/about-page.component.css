@@ -2,7 +2,7 @@
   display: block;
   background-color: #1A1A1A;
   color: #FFEEDD;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
 }
 .pozadina{
 background: linear-gradient(#1A1A1A, #0d0d0d);
@@ -34,7 +34,7 @@ background: linear-gradient(#1A1A1A, #0d0d0d);
 }
 
 .about-hero h1,
-.about-hero p {
+.about-hero .about-tagline {
   position: relative;
   z-index: 1;
 }
@@ -46,9 +46,18 @@ background: linear-gradient(#1A1A1A, #0d0d0d);
   color: #FFEEDD;
 }
 
-.about-hero p {
-  font-size: 20px;
-  color: #DCC8AF;
+.about-tagline {
+  font-size: 1.25rem;
+  color: #dcc8af;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  max-width: 22rem;
+  line-height: 1.5;
+}
+
+.kontakt-email {
+  font-style: italic;
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -15,8 +15,13 @@ import { Narudzbina, NacinPlacanjaKod } from '../../../models/Narudzbina';
   styleUrl: './cart-page.component.css',
 })
 export class CartPageComponent implements OnInit, OnDestroy {
-  greska: string | null = null;
   ucitava = false;
+
+  toastVisible = false;
+  toastPoruka = '';
+  toastTip: 'warn' | 'error' = 'warn';
+  private toastHideTimer?: ReturnType<typeof setTimeout>;
+  private alive = true;
 
   gostEmail = '';
   nacinPlacanja: NacinPlacanjaKod = 'POUZEC';
@@ -33,7 +38,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     public cartService: CartService,
     private narudzbinaService: NarudzbinaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -56,35 +62,43 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.alive = false;
+    if (this.toastHideTimer) {
+      clearTimeout(this.toastHideTimer);
+    }
     this.paramSub?.unsubscribe();
   }
 
   ukloni(plocaId: number): void {
     this.cartService.ukloni(plocaId);
-    this.greska = null;
   }
 
   isprazni(): void {
     this.cartService.isprazni();
-    this.greska = null;
   }
 
   naruci(): void {
     if (!this.gostMejlIzgledaOk()) {
-      this.greska = 'Unesite ispravan e-mail za kontakt (za status porudžbine).';
+      this.prikaziToast(
+        'Unesite ispravan e-mail za kontakt (za status porudžbine).',
+        'warn'
+      );
       return;
     }
     if (!this.adresaDostaveOk()) {
-      this.greska = 'Popunite ime, adresu, grad, poštanski broj, državu i telefon.';
+      this.prikaziToast(
+        'Popunite ime, adresu, grad, poštanski broj, državu i telefon.',
+        'warn'
+      );
       return;
     }
     const stavke = this.cartService.stavkeKorpe();
     if (stavke.length === 0) {
+      this.prikaziToast('Korpa je prazna.', 'warn');
       return;
     }
 
     this.ucitava = true;
-    this.greska = null;
     this.narudzbinaService
       .createGuest({
         gostEmail: this.gostEmail.trim(),
@@ -114,9 +128,39 @@ export class CartPageComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.ucitava = false;
-          this.greska = this.porukaGreske(err, 'Greška pri kreiranju narudžbine.');
+          this.prikaziToast(
+            this.porukaGreske(err, 'Greška pri kreiranju narudžbine.'),
+            'error'
+          );
         },
       });
+  }
+
+  private prikaziToast(poruka: string, tip: 'warn' | 'error'): void {
+    if (this.toastHideTimer) {
+      clearTimeout(this.toastHideTimer);
+      this.toastHideTimer = undefined;
+    }
+    this.toastPoruka = poruka;
+    this.toastTip = tip;
+    this.toastVisible = false;
+    this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      if (!this.alive) {
+        return;
+      }
+      this.toastVisible = true;
+      this.cdr.detectChanges();
+      this.toastHideTimer = setTimeout(() => {
+        if (!this.alive) {
+          return;
+        }
+        this.toastVisible = false;
+        this.toastHideTimer = undefined;
+        this.cdr.detectChanges();
+      }, tip === 'error' ? 3800 : 3500);
+    });
   }
 
   slikaUrl(putanja: string): string {

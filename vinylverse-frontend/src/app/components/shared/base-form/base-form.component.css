@@ -5,11 +5,10 @@ background: linear-gradient(#1A1A1A, #0d0d0d);
   min-height: 100vh;
   padding: 2rem 1rem; 
   box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-body);
       color: #FFEEDD;
 }
 
-  /* font-family: 'Poppins', sans-serif; */
 h2 {
   text-align: center;
   color: #2b6f5b;

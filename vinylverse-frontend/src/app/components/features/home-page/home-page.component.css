@@ -1,12 +1,11 @@
 :host {
   display: block;
-  /* background-color: #2B2B2B; */
-  color: #FFEEDD;
-  font-family: 'Poppins', sans-serif;
+  color: #ffeedd;
+  font-family: var(--font-body);
 }
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
 }
 
 .pozadina{  background: linear-gradient(#1A1A1A, #0d0d0d);
@@ -48,9 +47,14 @@ a {
 }
 
 .hero p {
-  font-size: 18px;
+  font-size: 1.2rem;
   margin: 30px;
-  color: #DCC8AF;
+  max-width: 28rem;
+  color: #dcc8af;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
 }
 
 .btn {
@@ -69,26 +73,24 @@ a {
 
 
 .carousel-wrapper {
-  padding: 2rem;
+  padding: 2rem 2rem 3.5rem;
   text-align: center;
   color: #ffeedd;
   max-width: 1300px;
   margin: 0 auto;
-  /* background-color: #2B2B2B; */
-
 }
 
 .carousel-viewport {
   width: 100%;
-  overflow: hidden;
   position: relative;
-  height: 500px;
 
-
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .carousel-track {
   display: flex;
+  align-items: stretch;
   transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   will-change: transform;
 }
@@ -96,7 +98,10 @@ a {
 .carousel-item {
   flex: 0 0 calc(100% / 3);
   box-sizing: border-box;
- padding:  5.5rem;
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .carousel-controls {
@@ -146,8 +151,9 @@ a {
 .carousel-wrapper h2 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
 
-}hr.zelena-linija {
+hr.zelena-linija {
   border: none;
   height: 2px;
   background-color: #2b6f5b;

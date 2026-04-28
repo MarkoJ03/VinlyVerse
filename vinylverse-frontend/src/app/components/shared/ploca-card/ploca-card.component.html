@@ -2,9 +2,9 @@
 <img [src]="punaPutanjaSlike" [alt]="naziv" />
   <div class="info">
     <p class="title">{{ naziv }}</p>
-    <p>{{ izdavackaKuca }}</p>
-    <p>{{ zanr }}</p>
-    <p class="cena">{{ cena }}</p>
+    <p class="card-sub">{{ izdavackaKuca }}</p>
+    <p class="card-sub card-zanr">{{ zanr }}</p>
+    <p class="cena">{{ cena }}RSD</p>
   <div class="card-actions">
     <a [routerLink]="['/detalji', id, slug]">
       <button type="button">Detalji</button>

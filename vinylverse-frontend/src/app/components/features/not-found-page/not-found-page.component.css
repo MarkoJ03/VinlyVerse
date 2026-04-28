@@ -8,7 +8,7 @@ background: linear-gradient(#1A1A1A, #0d0d0d);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
 }
 
 .not-found-image {

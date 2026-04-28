@@ -1,6 +1,6 @@
-*{  
-  /* background-color: #1a1a1a; */
-  font-family: 'Poppins', sans-serif;}
+* {
+  font-family: var(--font-body);
+}
 body, html {
   margin: 0;
   padding: 0;
@@ -59,9 +59,21 @@ body, html {
 
 .info-table td {
   padding: 0.3rem 0.5rem;
-  font-size: 1rem;
-    border-bottom: 1px solid #333;
-    
+  font-size: 1.05rem;
+  border-bottom: 1px solid #333;
+}
+
+.info-table td:first-child {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c4a574;
+}
+
+.info-table td:not(:first-child) {
+  font-style: italic;
+  color: #f0e6d8;
 }
 
 .add-to-cart {
@@ -111,7 +123,7 @@ body, html {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #2ecc71;
+  background-color: #2b6f5b;
   color: #fff;
   padding: 1rem 2rem;
   border-radius: 8px;
@@ -137,26 +149,23 @@ body, html {
 }
 
 .carousel-wrapper {
-  padding: 2rem;
+  padding: 2rem 2rem 3.5rem;
   text-align: center;
   color: #ffeedd;
   max-width: 1300px;
   margin: 0 auto;
-  /* background-color: #1a1a1a; */
-
 }
 
 .carousel-viewport {
   width: 100%;
-  overflow: hidden;
   position: relative;
-  height: 500px;
-
-
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .carousel-track {
   display: flex;
+  align-items: stretch;
   transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   will-change: transform;
 }
@@ -164,7 +173,10 @@ body, html {
 .carousel-item {
   flex: 0 0 calc(100% / 3);
   box-sizing: border-box;
- padding:  5.5rem;
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .carousel-controls {

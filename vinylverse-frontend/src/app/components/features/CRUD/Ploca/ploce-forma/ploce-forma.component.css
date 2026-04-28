@@ -1,7 +1,7 @@
 form {
   background-color: #1a1a1a;
   color: #FFEEDD;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-body);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
