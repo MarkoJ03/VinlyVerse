@@ -29,7 +29,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   adresaUlica = '';
   adresaGrad = '';
   adresaPostanskiBroj = '';
-  adresaDrzava = 'Srbija';
+  adresaDrzava = '';
   adresaTelefon = '';
 
   private paramSub?: Subscription;

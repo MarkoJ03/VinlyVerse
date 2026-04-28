@@ -24,6 +24,7 @@ export class CheckoutSuccessComponent implements OnInit {
 
   private pristupniToken: string | null = null;
   private orderId: number | null = null;
+  private autoPayPalCapturePokrenut = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +56,11 @@ export class CheckoutSuccessComponent implements OnInit {
     this.narudzbinaService.getGuestPregled(id, tok).subscribe({
       next: (n) => {
         this.narudzbina = n;
+        if (this.trebaAutomatskiPayPalCapture(n)) {
+          this.autoPayPalCapturePokrenut = true;
+          this.izvrsiPayPalCapture();
+          return;
+        }
         this.ucitava = false;
       },
       error: (err) => {
@@ -63,6 +69,22 @@ export class CheckoutSuccessComponent implements OnInit {
         this.greska = this.porukaGreske(err, 'Porudžbina nije pronađena ili je pristup istekao.');
       },
     });
+  }
+
+  private trebaAutomatskiPayPalCapture(narudzbina: Narudzbina): boolean {
+    return (
+      !this.autoPayPalCapturePokrenut &&
+      this.jePovratakSaPayPal() &&
+      narudzbina.nacinPlacanja === 'PAYPAL' &&
+      !!narudzbina.providerOrderId &&
+      narudzbina.status !== 'PAID' &&
+      narudzbina.status !== 'CANCELLED'
+    );
+  }
+
+  private jePovratakSaPayPal(): boolean {
+    const params = this.route.snapshot.queryParamMap;
+    return params.has('token') || params.has('PayerID');
   }
 
   otvoriPayPal(): void {

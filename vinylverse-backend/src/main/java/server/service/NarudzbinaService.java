@@ -1,6 +1,7 @@
 package server.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,11 +52,17 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
     @Autowired
     private RacunEmailService racunEmailService;
 
+    @Autowired
+    private ExchangeRateService exchangeRateService;
+
     @Value("${paypal.return-url:http://localhost:4200/checkout/success}")
     private String paypalReturnUrl;
 
     @Value("${paypal.cancel-url:http://localhost:4200/checkout/cancel}")
     private String paypalCancelUrl;
+
+    @Value("${paypal.payment-currency:EUR}")
+    private String paypalPaymentCurrency;
 
     @Override
     protected CrudRepository<Narudzbina, Long> getRepository() {
@@ -238,7 +245,7 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
         String returnWithOrder = paypalUrlWithQueryParam(paypalReturnUrl, "orderId", String.valueOf(oid));
         String cancelWithOrder = paypalUrlWithQueryParam(paypalCancelUrl, "orderId", String.valueOf(oid));
         PayPalCreateOrderResponseDTO response = payPalService.createOrder(
-                narudzbina.getUkupanIznos(), "EUR", returnWithOrder, cancelWithOrder);
+                iznosZaPayPal(narudzbina.getUkupanIznos()), paypalCurrencyCode(), returnWithOrder, cancelWithOrder);
         narudzbina.setPaymentProvider(PaymentProvider.PAYPAL);
         narudzbina.setProviderOrderId(response.getPaypalOrderId());
         narudzbina.setStatus(StatusNarudzbine.PENDING_PAYMENT);
@@ -392,6 +399,20 @@ public class NarudzbinaService extends BaseService<Narudzbina, NarudzbinaDTO, Lo
         }
         String sep = base.contains("?") ? "&" : "?";
         return base + sep + name + "=" + value;
+    }
+
+    private BigDecimal iznosZaPayPal(BigDecimal iznosRsd) {
+        if ("RSD".equals(paypalCurrencyCode())) {
+            return iznosRsd.setScale(2, RoundingMode.HALF_UP);
+        }
+        return iznosRsd.multiply(exchangeRateService.rsdTo(paypalCurrencyCode())).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    private String paypalCurrencyCode() {
+        if (paypalPaymentCurrency == null || paypalPaymentCurrency.isBlank()) {
+            return "EUR";
+        }
+        return paypalPaymentCurrency.trim().toUpperCase();
     }
 
     private NacinPlacanja resolveNacinPlacanjaObavezno(String s) {

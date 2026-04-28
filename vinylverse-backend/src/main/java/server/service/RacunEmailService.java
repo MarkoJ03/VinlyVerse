@@ -87,10 +87,10 @@ public class RacunEmailService {
                             ? stavka.getPloca().getProizvod().getNaziv()
                             : "Nepoznat proizvod";
             BigDecimal cena = Objects.requireNonNullElse(stavka.getUkupno(), BigDecimal.ZERO);
-            sb.append("- ").append(naziv).append(" | ").append(cena).append(" EUR\n");
+            sb.append("- ").append(naziv).append(" | ").append(cena).append(" RSD\n");
         }
         sb.append('\n');
-        sb.append("Ukupno: ").append(Objects.requireNonNullElse(narudzbina.getUkupanIznos(), BigDecimal.ZERO)).append(" EUR\n\n");
+        sb.append("Ukupno: ").append(Objects.requireNonNullElse(narudzbina.getUkupanIznos(), BigDecimal.ZERO)).append(" RSD\n\n");
         sb.append("Adresa dostave:\n");
         sb.append(Objects.toString(narudzbina.getAdresaIme(), "")).append('\n');
         sb.append(Objects.toString(narudzbina.getAdresaUlica(), "")).append('\n');
